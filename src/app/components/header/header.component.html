@@ -7,8 +7,7 @@
     <nav class="nav" aria-label="Primary">
       <a routerLink="/home" fragment="work">What I do</a>
       <a routerLink="/home" fragment="experience">Experience</a>
-      <a routerLink="/demo" routerLinkActive="active" ariaCurrentWhenActive="page">Demo</a>
-      <a routerLink="/mfa-demo" routerLinkActive="active" ariaCurrentWhenActive="page">MFA demo</a>
+      <a routerLink="/home" fragment="demos" [class.active]="onDemoPage" [attr.aria-current]="onDemoPage ? 'page' : null">Demos</a>
     </nav>
     <a class="cta" routerLink="/home" fragment="contact">Get in touch</a>
   </div>

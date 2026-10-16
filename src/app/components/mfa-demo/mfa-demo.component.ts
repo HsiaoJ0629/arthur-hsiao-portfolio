@@ -1,5 +1,6 @@
 import { Component, Inject, NgZone, OnDestroy, afterNextRender } from '@angular/core';
 import { MaterialModule } from '../../modules/material.module';
+import { DemoNavComponent } from '../demo-nav/demo-nav.component';
 import { base32Encode } from '../../service/totp/base32';
 import { CLOCK } from '../../service/totp/clock';
 import {
@@ -33,7 +34,7 @@ interface AttemptLogEntry {
 /** Interactive TOTP (RFC 6238) demo: an authenticator and a server verifier, both in the browser. */
 @Component({
   selector: 'app-mfa-demo',
-  imports: [MaterialModule],
+  imports: [MaterialModule, DemoNavComponent],
   templateUrl: './mfa-demo.component.html',
   styleUrl: './mfa-demo.component.scss'
 })

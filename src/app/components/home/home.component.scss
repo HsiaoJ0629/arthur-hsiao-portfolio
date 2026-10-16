@@ -109,7 +109,9 @@
   p { margin: 0; color: var(--muted); font-size: 16px; }
 }
 
-/* Demo teaser */
+/* Live demos */
+.demos-head { margin-bottom: 24px; }
+
 .demo-teaser-wrap { display: flex; flex-direction: column; gap: 24px; padding-bottom: 96px; }
 
 .demo-teaser {

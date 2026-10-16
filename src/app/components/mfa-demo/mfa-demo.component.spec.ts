@@ -1,5 +1,6 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { provideNoopAnimations } from '@angular/platform-browser/animations';
+import { provideRouter } from '@angular/router';
 import { base32Decode } from '../../service/totp/base32';
 import { CLOCK } from '../../service/totp/clock';
 import { totp } from '../../service/totp/totp';
@@ -15,7 +16,7 @@ describe('MfaDemoComponent', () => {
   beforeEach(async () => {
     await TestBed.configureTestingModule({
       imports: [MfaDemoComponent],
-      providers: [provideNoopAnimations(), { provide: CLOCK, useValue: () => NOW }]
+      providers: [provideNoopAnimations(), provideRouter([]), { provide: CLOCK, useValue: () => NOW }]
     }).compileComponents();
 
     fixture = TestBed.createComponent(MfaDemoComponent);

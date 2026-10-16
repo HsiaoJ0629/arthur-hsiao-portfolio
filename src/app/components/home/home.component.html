@@ -14,7 +14,7 @@
         See my experience
         <svg aria-hidden="true" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 5v14"/><path d="m19 12-7 7-7-7"/></svg>
       </a>
-      <a class="btn-pill outline" routerLink="/demo">Try the live demo</a>
+      <a class="btn-pill outline" routerLink="/home" fragment="demos">Try the live demos</a>
     </div>
   </div>
 
@@ -55,11 +55,16 @@
 <!-- Experience: summary, skills filter, work history -->
 <app-about></app-about>
 
-<!-- Demo teaser -->
-<section id="demo" class="page-wrap demo-teaser-wrap">
+<!-- Live demos -->
+<section id="demos" class="page-wrap demo-teaser-wrap">
+  <div class="section-head demos-head">
+    <h2 class="h2">Live demos</h2>
+    <p class="muted">Working code you can try in the browser — not screenshots.</p>
+  </div>
+
   <div class="demo-teaser">
     <div class="demo-copy">
-      <span class="eyebrow">Interactive demo</span>
+      <span class="eyebrow">01 · Full stack</span>
       <h2 class="demo-title">Product management system</h2>
       <p class="muted">
         Search, sort, page through and edit products against a live REST API — built with Angular and Angular Material.
@@ -78,7 +83,7 @@
 
   <div class="demo-teaser">
     <div class="demo-copy">
-      <span class="eyebrow">Interactive demo</span>
+      <span class="eyebrow">02 · Security</span>
       <h2 class="demo-title">Multi-factor authentication</h2>
       <p class="muted">
         Generate and verify one-time codes in the browser — TOTP built from scratch on the Web Crypto API, with

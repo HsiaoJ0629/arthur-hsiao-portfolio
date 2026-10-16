@@ -7,10 +7,11 @@ import { MatSort } from '@angular/material/sort';
 import { Product } from '../../service/dummy/model/product';
 import { ProductEditDialogComponent } from '../product-edit-dialog/product-edit-dialog.component';
 import { MatDialog } from '@angular/material/dialog';
+import { DemoNavComponent } from '../demo-nav/demo-nav.component';
 
 @Component({
   selector: 'app-demo',
-  imports: [ MaterialModule ],
+  imports: [ MaterialModule, DemoNavComponent ],
   templateUrl: './demo.component.html',
   styleUrl: './demo.component.scss'
 })

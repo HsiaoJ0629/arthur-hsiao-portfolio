@@ -67,16 +67,17 @@ The app shell ([app.component.html](src/app/app.component.html)) always shows th
 
 ```
 AppComponent
-├── HeaderComponent          brand + nav (What I do / Experience / Demo / MFA demo) + "Get in touch"
+├── HeaderComponent          brand + nav (What I do / Experience / Demos) + "Get in touch"; "Demos" links to /home#demos and is highlighted on any demo page
 ├── <router-outlet>
 │   ├── HomeComponent        hero, services ("What I do"), teasers for both demos
 │   │   └── AboutComponent   "Experience" section
 │   │       ├── SummaryComponent   professional summary text
 │   │       ├── SkillsComponent    grouped skill chips (clickable filter)
 │   │       └── HistoryComponent   work history timeline
-│   ├── DemoComponent        Material table of products
+│   ├── DemoComponent        Material table of products (starts with DemoNavComponent)
 │   │   └── ProductEditDialogComponent   (MatDialog) add / edit a product
-│   └── MfaDemoComponent     TOTP authenticator + server verifier, side by side
+│   └── MfaDemoComponent     TOTP authenticator + server verifier, side by side (starts with DemoNavComponent)
+│       DemoNavComponent     shared "All demos" back link + switcher between the demo pages; add new demos to its `demos` list and to DEMO_PATHS in header.component.ts
 └── ContactComponent         email (mailto), LinkedIn, copyright year
 ```
 
