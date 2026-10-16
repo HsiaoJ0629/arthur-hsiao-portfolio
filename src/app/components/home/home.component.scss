@@ -110,7 +110,7 @@
 }
 
 /* Demo teaser */
-.demo-teaser-wrap { padding-bottom: 96px; }
+.demo-teaser-wrap { display: flex; flex-direction: column; gap: 24px; padding-bottom: 96px; }
 
 .demo-teaser {
   display: flex;

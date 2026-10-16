@@ -1,0 +1,134 @@
+<section class="page-wrap mfa">
+  <header class="intro">
+    <span class="eyebrow">Interactive demo</span>
+    <h1 class="display title">Multi-factor authentication</h1>
+    <p class="lede">
+      I implemented OTP and TOTP second factors across Attvest's financial platforms. This page re-implements
+      <strong>TOTP (RFC 6238)</strong> with no libraries — just the <strong>Web Crypto API</strong> — and runs both
+      halves in your browser: the authenticator that shows a code, and the server that decides whether to accept it.
+    </p>
+    <ul class="tag-list" aria-label="Demo features">
+      @for (f of features; track f) {
+        <li class="tag">{{ f }}</li>
+      }
+    </ul>
+    <a class="source" [href]="sourceUrl" target="_blank" rel="noopener noreferrer">
+      Read the source, checked against the RFC 4226 and 6238 test vectors
+      <span class="visually-hidden">(opens in a new tab)</span>
+    </a>
+  </header>
+
+  <div class="panels">
+    <!-- Authenticator -->
+    <div class="panel">
+      <div>
+        <span class="step">01</span>
+        <h2 class="panel-title">Authenticator</h2>
+        <p class="hint">What the user's phone shows.</p>
+      </div>
+
+      <div class="settings">
+        <div class="seg" role="group" aria-label="HMAC algorithm">
+          @for (option of algorithms; track option) {
+            <button type="button" [attr.aria-pressed]="algorithm === option" (click)="setAlgorithm(option)">{{ option }}</button>
+          }
+        </div>
+        <div class="seg" role="group" aria-label="Code length">
+          @for (option of digitOptions; track option) {
+            <button type="button" [attr.aria-pressed]="digits === option" (click)="setDigits(option)">{{ option }} digits</button>
+          }
+        </div>
+      </div>
+
+      <div class="code-box">
+        <span class="eyebrow">Current code</span>
+        <span class="code-value" data-testid="current-code">{{ codes?.current ?? '—' }}</span>
+        <div class="timer" role="progressbar" aria-label="Time left on the current code"
+             aria-valuemin="0" aria-valuemax="100" [attr.aria-valuenow]="progress">
+          <span [style.width.%]="progress"></span>
+        </div>
+        <span class="hint">Expires in {{ secondsLeft }} s</span>
+      </div>
+
+      <div class="actions">
+        <button type="button" class="btn-pill dark" [disabled]="!codes" (click)="useCode(codes!.current)">Use current code</button>
+        <button type="button" class="btn-pill outline" [disabled]="!codes" (click)="useCode(codes!.previous)">Previous</button>
+        <button type="button" class="btn-pill outline" [disabled]="!codes" (click)="useCode(codes!.next)">Next</button>
+      </div>
+
+      <dl class="details">
+        <dt class="eyebrow">Shared secret (base32)</dt>
+        <dd><code data-testid="secret">{{ formattedSecret || 'Generating…' }}</code></dd>
+        <dt class="eyebrow">Key URI</dt>
+        <dd><code>{{ keyUri }}</code></dd>
+      </dl>
+      <p class="hint">
+        With SHA-1 and 6 digits, you can type this key into Google Authenticator or 1Password and it will show the
+        same codes.
+      </p>
+      <button type="button" class="btn-pill outline self-start" (click)="newSecret()">
+        <mat-icon aria-hidden="true">autorenew</mat-icon>
+        New secret
+      </button>
+    </div>
+
+    <!-- Server -->
+    <div class="panel">
+      <div>
+        <span class="step">02</span>
+        <h2 class="panel-title">Server verification</h2>
+        <p class="hint">Where the security decisions are made.</p>
+      </div>
+
+      <form class="verify" (ngSubmit)="verify()">
+        <mat-form-field appearance="outline" class="code-field" subscriptSizing="dynamic">
+          <mat-label>One-time code</mat-label>
+          <input matInput name="code" inputmode="numeric" autocomplete="one-time-code"
+                 [attr.maxlength]="digits" [(ngModel)]="codeInput">
+        </mat-form-field>
+        <button type="submit" class="btn-pill primary" [disabled]="isVerifying || !secret">Verify</button>
+      </form>
+
+      <div role="status">
+        @if (result; as current) {
+          <p class="result" [class.ok]="current.status === 'accepted'">
+            <mat-icon aria-hidden="true">{{ current.status === 'accepted' ? 'check_circle' : 'block' }}</mat-icon>
+            <span>{{ describe(current) }}</span>
+          </p>
+        }
+      </div>
+
+      <h3 class="sub">Try it</h3>
+      <ul class="list">
+        <li><strong>Clock drift:</strong> the previous and next codes are accepted too (±{{ policy.window }} step), because phone clocks are rarely exact.</li>
+        <li><strong>Replay protection:</strong> submit the same code twice — a code is single-use, even inside its 30 s window.</li>
+        <li><strong>Brute-force limit:</strong> with only 10<sup>{{ digits }}</sup> possible codes, {{ policy.maxFailedAttempts }} wrong attempts lock verification for {{ policy.lockoutSeconds }} s.</li>
+        <li><strong>Constant-time comparison:</strong> every window is checked in full, so response time does not leak how close a guess was.</li>
+      </ul>
+
+      @if (attempts.length) {
+        <h3 class="sub">Recent attempts</h3>
+        <ol class="attempts" data-testid="attempts">
+          @for (attempt of attempts; track attempt.id) {
+            <li [class.ok]="attempt.accepted"><code>{{ attempt.code }}</code><span>{{ attempt.message }}</span></li>
+          }
+        </ol>
+      }
+    </div>
+  </div>
+
+  <!-- How it works -->
+  <div class="panel">
+    <h2 class="panel-title">How a code is made</h2>
+    <ol class="list steps">
+      <li><strong>Counter.</strong> T = floor(unix time ÷ 30), written as an 8-byte big-endian integer. JavaScript's bitwise operators are 32-bit, so it is written as two 32-bit halves.</li>
+      <li><strong>HMAC.</strong> HMAC-{{ algorithm }}(shared secret, counter).</li>
+      <li><strong>Dynamic truncation.</strong> The low 4 bits of the last digest byte pick a 4-byte window; its top bit is masked off to give a 31-bit integer.</li>
+      <li><strong>Reduce.</strong> That integer modulo 10<sup>{{ digits }}</sup>, left-padded with zeros.</li>
+    </ol>
+    <p class="hint">
+      In production the secret lives only on the server and the phone, is stored encrypted, and replay and lockout
+      state is persisted per user rather than held in memory.
+    </p>
+  </div>
+</section>

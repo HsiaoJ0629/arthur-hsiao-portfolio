@@ -75,4 +75,24 @@
       <svg aria-hidden="true" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg>
     </a>
   </div>
+
+  <div class="demo-teaser">
+    <div class="demo-copy">
+      <span class="eyebrow">Interactive demo</span>
+      <h2 class="demo-title">Multi-factor authentication</h2>
+      <p class="muted">
+        Generate and verify one-time codes in the browser — TOTP built from scratch on the Web Crypto API, with
+        clock-drift tolerance, replay protection and lockout.
+      </p>
+      <ul class="tag-list" aria-label="MFA demo features">
+        @for (f of mfaFeatures; track f) {
+          <li class="tag">{{ f }}</li>
+        }
+      </ul>
+    </div>
+    <a class="btn-pill dark" routerLink="/mfa-demo">
+      Open the MFA demo
+      <svg aria-hidden="true" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg>
+    </a>
+  </div>
 </section>

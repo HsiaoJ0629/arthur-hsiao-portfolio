@@ -4,7 +4,7 @@ This file gives Claude Code guidance for working in this repository.
 
 ## What this is
 
-A single-page personal portfolio for Arthur Hsiao (Full Stack Developer), built with **Angular 19** standalone components. It also has a live **product management demo** backed by the public [DummyJSON](https://dummyjson.com/) REST API.
+A single-page personal portfolio for Arthur Hsiao (Full Stack Developer), built with **Angular 19** standalone components. It also has two live demos: a **product management demo** backed by the public [DummyJSON](https://dummyjson.com/) REST API, and an **MFA demo** that implements TOTP (RFC 6238) from scratch on the Web Crypto API.
 
 - **Live site:** https://hsiaoj0629.github.io/arthur-hsiao-portfolio/home
 - **Hosting:** GitHub Pages, as a static prerendered build
@@ -53,6 +53,7 @@ Defined in [src/app/app.routes.ts](src/app/app.routes.ts):
 |---|---|---|
 | `/home` | `HomeComponent` | Main one-page portfolio |
 | `/demo` | `DemoComponent` | Product management demo |
+| `/mfa-demo` | `MfaDemoComponent` | MFA (TOTP) demo |
 | `/about`, `/contact` | — | Redirect to `/home`, where these are now sections |
 | `''`, `**` | — | Redirect to `/home` |
 
@@ -66,15 +67,16 @@ The app shell ([app.component.html](src/app/app.component.html)) always shows th
 
 ```
 AppComponent
-├── HeaderComponent          brand + nav (What I do / Experience / Demo) + "Get in touch"
+├── HeaderComponent          brand + nav (What I do / Experience / Demo / MFA demo) + "Get in touch"
 ├── <router-outlet>
-│   ├── HomeComponent        hero, services ("What I do"), demo teaser
+│   ├── HomeComponent        hero, services ("What I do"), teasers for both demos
 │   │   └── AboutComponent   "Experience" section
 │   │       ├── SummaryComponent   professional summary text
 │   │       ├── SkillsComponent    grouped skill chips (clickable filter)
 │   │       └── HistoryComponent   work history timeline
-│   └── DemoComponent        Material table of products
-│       └── ProductEditDialogComponent   (MatDialog) add / edit a product
+│   ├── DemoComponent        Material table of products
+│   │   └── ProductEditDialogComponent   (MatDialog) add / edit a product
+│   └── MfaDemoComponent     TOTP authenticator + server verifier, side by side
 └── ContactComponent         email (mailto), LinkedIn, copyright year
 ```
 
@@ -86,6 +88,12 @@ AppComponent
   - Client-side sorting with `MatSort`, plus a loading spinner
   - Add and edit products through `ProductEditDialogComponent`, with toastr success/error alerts
   - DummyJSON simulates writes: add and update return a response, but nothing is saved on the server.
+
+- **MFA demo** ([mfa-demo.component.ts](src/app/components/mfa-demo/mfa-demo.component.ts)):
+  - Shows the current code with previous/next codes, a 30 s countdown, the base32 secret and the `otpauth://` key URI. You can switch between SHA-1/256/512 and 6/8 digits.
+  - The verifier side demonstrates the clock-drift window (±1 step), replay protection, lockout after 5 failures, and constant-time comparison.
+  - The secret is generated only in the browser (`afterNextRender`), so the prerendered HTML never contains one. A one-second timer runs outside the Angular zone, and state updates go through `zone.run`.
+  - The clock is the injectable `CLOCK` token, so specs can pin the time.
 
 ### Unused code
 
@@ -107,6 +115,17 @@ AppComponent
 | `showAlert(type, message)` | — | Shows a toastr notification |
 
 The models are in [src/app/service/dummy/model/](src/app/service/dummy/model/) (`Product`, `ProductList`).
+
+The TOTP code is in [src/app/service/totp/](src/app/service/totp/). It's framework-free except for `clock.ts`:
+
+| File | Contents |
+|---|---|
+| `base32.ts` | RFC 4648 base32 encode/decode |
+| `totp.ts` | `hotp`, `totp`, `timeStep`, `secondsRemaining`, `constantTimeEqual`, `generateSecret`, `otpauthUri` |
+| `totp-verifier.ts` | `TotpVerifier`: drift window, replay protection, lockout |
+| `clock.ts` | `CLOCK` injection token (defaults to `Date.now`) |
+
+The specs check the official RFC 4226/6238/4648 test vectors. Don't change them to match the implementation's output.
 
 The Material modules are re-exported together from [src/app/modules/material.module.ts](src/app/modules/material.module.ts).
 
@@ -149,7 +168,9 @@ arthur-hsiao-portfolio/
         ├── app.routes.ts
         ├── components/            feature components (see above)
         ├── modules/material.module.ts
-        └── service/dummy/         DummyJSON API service + models
+        └── service/
+            ├── dummy/             DummyJSON API service + models
+            └── totp/              HOTP/TOTP, base32, verifier, CLOCK token
 ```
 
 ---

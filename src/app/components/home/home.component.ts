@@ -22,4 +22,5 @@ export class HomeComponent {
   ];
 
   demoFeatures: string[] = ['Real-time search', 'Sorting', 'Pagination', 'CRUD', 'REST API'];
+  mfaFeatures: string[] = ['TOTP (RFC 6238)', 'Web Crypto API', 'Replay protection', 'Lockout'];
 }
