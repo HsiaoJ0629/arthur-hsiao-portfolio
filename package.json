@@ -8,7 +8,7 @@
     "watch": "ng build --watch --configuration development",
     "test": "ng test",
     "serve:ssr:my-angular-app": "node dist/my-angular-app/server/server.mjs",
-    "build:ghpages": "ng build --configuration ghpages --base-href=/my-angular-app/",
+    "build:ghpages": "ng build --configuration ghpages --base-href=/arthur-hsiao-portfolio/",
     "deploy:ghpages": "npm run build:ghpages && npx angular-cli-ghpages --dir=dist/my-angular-app/browser"
   },
   "private": true,

@@ -1,10 +1,14 @@
-<!-- src/app/header/header.component.html -->
-<mat-toolbar class="header-toolbar">
-  <button mat-icon-button (click)="onMenuButtonClick()" aria-label="Toggle menu">
-    <mat-icon>menu</mat-icon>
-  </button>
-  <span class="header-title">Arthur Hsiao</span>
-  <span class="header-subtitle">Full Stack Developer</span>
-  <span class="spacer"></span>
-  <!-- Add other header content here -->
-</mat-toolbar>
+<header class="site-header">
+  <div class="page-wrap bar">
+    <a class="brand" routerLink="/home" fragment="top" aria-label="Arthur Hsiao — home">
+      <span class="mark" aria-hidden="true">AH</span>
+      <span class="name">Arthur Hsiao</span>
+    </a>
+    <nav class="nav" aria-label="Primary">
+      <a routerLink="/home" fragment="work">What I do</a>
+      <a routerLink="/home" fragment="experience">Experience</a>
+      <a routerLink="/demo" routerLinkActive="active" ariaCurrentWhenActive="page">Demo</a>
+    </nav>
+    <a class="cta" routerLink="/home" fragment="contact">Get in touch</a>
+  </div>
+</header>

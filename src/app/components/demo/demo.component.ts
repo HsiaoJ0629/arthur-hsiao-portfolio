@@ -26,6 +26,7 @@ export class DemoComponent implements OnInit {
   isLoading: boolean = false;
   filterValue: string = '';
   hasSearch: boolean = false;
+  features: string[] = ['Real-time search', 'Sorting', 'Pagination', 'CRUD', 'REST API', 'Responsive'];
   constructor(
     private dummyService: DummyService,
     private dialog: MatDialog
@@ -63,6 +64,12 @@ export class DemoComponent implements OnInit {
       this.isLoading = false;
 
     })
+  }
+
+  /** New search from the search form: start again from the first page. */
+  onSearch() {
+    this.pageIndex = 0;
+    this.searchProducts();
   }
 
   onPageEvent(event: any) {

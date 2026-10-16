@@ -1,84 +1,209 @@
-
-/* You can add global styles to this file, and also import other style files */
+/* Global styles: design tokens, typography and shared building blocks */
 @use '@angular/material' as mat;
 @use '../theme-colors' as my-theme;
 @use 'bootstrap/scss/bootstrap';
 @use 'ngx-toastr/toastr';
 
-:root {
-  @include mat.toolbar-overrides((
-    container-background-color: var(--mat-sys-primary-container),
-  ));
-
-  @include mat.sidenav-overrides((
-    container-background-color: var(--mat-sys-primary-container),
-  ));
-
-  @include mat.chips-overrides((
-    outline-color: var(--mat-sys-inverse-primary),
-    elevated-selected-container-color: var(--mat-sys-inverse-primary)
-  ));
-}
-
 html {
-  color-scheme: light dark; // Keep light and dark scheme if desired
+  color-scheme: light;
   @include mat.theme((
     color: (
       primary: my-theme.$primary-palette,
       tertiary: my-theme.$tertiary-palette,
     ),
-    typography: Roboto, // Use default typography
+    typography: (
+      plain-family: unquote("'IBM Plex Sans', 'Helvetica Neue', sans-serif"),
+      brand-family: unquote("'Bricolage Grotesque', 'Helvetica Neue', sans-serif"),
+    ),
     density: 0
-  )); // Apply the custom theme to all components
+  ));
 
   @media (prefers-contrast: more) {
     @include my-theme.high-contrast-overrides(color-scheme);
   }
 }
 
-html, body { 
-  height: 100%; 
-  overflow: hidden;
-}
-body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
+:root {
+  --ink: #0B1B2E;
+  --ink-2: #24313F;
+  --muted: #3F4D5C;
+  --ground: #F3F5F7;
+  --surface: #FFFFFF;
+  --line: #DCE2E8;
+  --line-strong: #C5CFD9;
+  --chip: #EEF2F6;
+  --accent: #0061A3;
+  --on-dark-muted: #B8C6D4;
 
-/* You might want to add more specific styling here for your 'app-root' or other components */
-/* For a modern look, consider adjusting spacing, shadows, and borders */
-app-root {
-  flex-direction: column;
-  // Add padding or margin as needed
+  --font-display: 'Bricolage Grotesque', 'Helvetica Neue', sans-serif;
+  --font-body: 'IBM Plex Sans', 'Helvetica Neue', sans-serif;
+  --font-mono: 'IBM Plex Mono', ui-monospace, monospace;
+
+  --container: 1240px;
+  --radius: 16px;
+
+  @include mat.toolbar-overrides((
+    container-background-color: var(--surface),
+  ));
 }
 
-mat-card {
-  border-top: 4px solid var(--mat-sys-inverse-primary) !important; /* Adjust thickness (4px) as needed */
+html {
+  scroll-behavior: smooth;
+  scroll-padding-top: 96px;
+
+  @media (max-width: 640px) { scroll-padding-top: 16px; }
 }
 
-table tr:hover{
-  background: var(--mat-sys-surface-container-high);
+body {
+  margin: 0;
+  background: var(--ground);
+  color: var(--ink);
+  font-family: var(--font-body);
+  font-size: 17px;
+  line-height: 1.6;
+  -webkit-font-smoothing: antialiased;
 }
 
-.clickable,
-.clickable .mdc-evolution-chip__text-label{
+a { color: var(--ink); }
+a:hover { color: var(--accent); }
+
+:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 3px;
+}
+
+/* ---------- Layout ---------- */
+.page-wrap {
+  max-width: var(--container);
+  margin: 0 auto;
+  padding-left: 32px;
+  padding-right: 32px;
+
+  @media (max-width: 600px) {
+    padding-left: 20px;
+    padding-right: 20px;
+  }
+}
+
+.section { padding-top: 96px; padding-bottom: 96px; }
+@media (max-width: 600px) {
+  .section { padding-top: 64px; padding-bottom: 64px; }
+}
+
+/* ---------- Type ---------- */
+.display {
+  margin: 0;
+  font-family: var(--font-display);
+  font-weight: 700;
+  letter-spacing: -0.03em;
+  line-height: 1.02;
+  text-wrap: balance;
+}
+
+.h2 {
+  margin: 0;
+  font-family: var(--font-display);
+  font-weight: 700;
+  font-size: clamp(34px, 4vw, 52px);
+  line-height: 1.05;
+  letter-spacing: -0.02em;
+}
+
+.lede {
+  margin: 0;
+  font-size: 19px;
+  color: var(--muted);
+  text-wrap: pretty;
+}
+
+.eyebrow {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  font-family: var(--font-mono);
+  font-size: 13px;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--muted);
+}
+
+.status-dot {
+  width: 9px;
+  height: 9px;
+  border-radius: 50%;
+  background: var(--accent);
+  flex: none;
+}
+
+/* ---------- Buttons ---------- */
+.btn-pill {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  min-height: 52px;
+  padding: 0 24px;
+  border-radius: 999px;
+  border: 1.5px solid transparent;
+  font-weight: 600;
+  font-size: 16px;
+  text-decoration: none;
   cursor: pointer;
+  transition: background-color .15s, color .15s, border-color .15s;
+
+  svg { flex: none; }
+
+  &.primary { background: var(--accent); color: #FFFFFF; }
+  &.primary:hover { background: #004C80; color: #FFFFFF; }
+
+  &.dark { background: var(--ink); color: #FFFFFF; }
+  &.dark:hover { background: #1C3048; color: #FFFFFF; }
+
+  &.outline { border-color: var(--ink); color: var(--ink); background: transparent; }
+  &.outline:hover { background: var(--ink); color: #FFFFFF; }
 }
 
-button.tertiary-btn{
-  color: var(--mat-sys-inverse-primary) !important;
-  background: var(--mat-sys-tertiary) !important;
+/* ---------- Tags ---------- */
+.tag-list {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin: 0;
+  padding: 0;
+  list-style: none;
 }
 
-button.tertiary-btn:hover{
-  background: var(--mat-sys-tertiary-container) !important;
+.tag {
+  font-size: 14px;
+  padding: 6px 12px;
+  border-radius: 999px;
+  background: var(--chip);
+  color: var(--ink-2);
+}
+
+/* ---------- Material tweaks ---------- */
+table tr.clickable:hover {
+  background: var(--chip);
+}
+
+.clickable { cursor: pointer; }
+
+button.tertiary-btn {
+  color: #FFFFFF !important;
+  background: var(--ink) !important;
+}
+
+button.tertiary-btn:hover {
+  background: #1C3048 !important;
 }
 
 .ngx-toastr {
-  width: 30% !important; // Specify toastr-dialog width for all devices
-  
+  width: 30% !important;
+
   @media (max-width: 768px) {
-    width: 90% !important; // Full width on mobile with small margins
+    width: 90% !important;
     max-width: 400px !important;
   }
-  
+
   @media (max-width: 480px) {
     width: 95% !important;
     font-size: 0.9rem !important;

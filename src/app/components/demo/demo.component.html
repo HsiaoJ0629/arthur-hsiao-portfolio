@@ -1,110 +1,79 @@
-<div class="demo-container">
-  <mat-card class="demo-intro-card">
-    <mat-card-header>
-      <mat-card-title>
-        <mat-icon class="section-icon">code</mat-icon>
-        Interactive Demo - Product Management System
-      </mat-card-title>
-      <mat-card-subtitle>Showcasing Full Stack Development Skills</mat-card-subtitle>
-    </mat-card-header>
-    <mat-card-content>
-      <p class="demo-description">
-        This interactive demo demonstrates my ability to build modern web applications with 
-        <strong>Angular</strong>, <strong>Material Design</strong>, and <strong>RESTful APIs</strong>. 
-        It features real-time search, pagination, sorting, and CRUD operations using the DummyJSON API.
-      </p>
-      <div class="demo-features">
-        <mat-chip>
-          <mat-icon>search</mat-icon>
-          Real-time Search
-        </mat-chip>
-        <mat-chip>
-          <mat-icon>sort</mat-icon>
-          Dynamic Sorting
-        </mat-chip>
-        <mat-chip>
-          <mat-icon>view_list</mat-icon>
-          Pagination
-        </mat-chip>
-        <mat-chip>
-          <mat-icon>add_circle</mat-icon>
-          CRUD Operations
-        </mat-chip>
-        <mat-chip>
-          <mat-icon>api</mat-icon>
-          RESTful API Integration
-        </mat-chip>
-        <mat-chip>
-          <mat-icon>phone_android</mat-icon>
-          Responsive Design
-        </mat-chip>
-      </div>
-    </mat-card-content>
-  </mat-card>
+<section class="page-wrap demo">
+  <header class="intro">
+    <span class="eyebrow">Interactive demo</span>
+    <h1 class="display title">Product management system</h1>
+    <p class="lede">
+      A working example of how I build data-heavy screens with <strong>Angular</strong>,
+      <strong>Angular Material</strong> and a <strong>RESTful API</strong> — real-time search, pagination,
+      sorting and CRUD against the DummyJSON API.
+    </p>
+    <ul class="tag-list" aria-label="Demo features">
+      @for (f of features; track f) {
+        <li class="tag">{{ f }}</li>
+      }
+    </ul>
+  </header>
 
-  <mat-card class="demo-card">
-    <mat-card-header>
-      <mat-card-title>
-        <mat-icon class="section-icon">inventory</mat-icon>
-        Product Management
-      </mat-card-title>
-      <mat-card-subtitle>Search, view, and manage products</mat-card-subtitle>
-    </mat-card-header>
-    <mat-card-content>
-    @if (isLoading) {
-        <div class="example-loading-shade">
-        @if (isLoading) {
-            <mat-spinner></mat-spinner>
-        }
-   
+  <div class="panel">
+    <div class="panel-head">
+      <div>
+        <h2 class="panel-title">Products</h2>
+        <p class="hint">Search by name, sort by column, or select a row to edit it.</p>
+      </div>
+      <button type="button" class="btn-pill dark add" (click)="addProduct()">
+        <mat-icon aria-hidden="true">add</mat-icon>
+        New product
+      </button>
+    </div>
+
+    <form class="search" role="search" (ngSubmit)="onSearch()">
+      <mat-form-field appearance="outline" class="search-field" subscriptSizing="dynamic">
+        <mat-label>Search products</mat-label>
+        <mat-icon matPrefix aria-hidden="true">search</mat-icon>
+        <input matInput name="filter" [(ngModel)]="filterValue" autocomplete="off">
+      </mat-form-field>
+      <button type="submit" class="btn-pill outline">Search</button>
+    </form>
+
+    <div class="table-box">
+      @if (isLoading) {
+        <div class="loading-shade">
+          <mat-spinner diameter="40"></mat-spinner>
         </div>
-    }
-    <mat-form-field class="w-100 mt-3">
-        <mat-label>Search</mat-label>
-        <input matInput [(ngModel)]="filterValue" (keyup.enter)="searchProducts()" #input>
-        <button class="me-2 tertiary-btn" mat-mini-fab matSuffix
-            (click)="$event.stopPropagation(); addProduct()">
-            <mat-icon>add</mat-icon>
-        </button>
-        <button class="me-2" mat-mini-fab matSuffix
-            (click)="$event.stopPropagation(); searchProducts()">
-            <mat-icon>search</mat-icon>
-        </button>
-    </mat-form-field>
-    
-    <mat-paginator 
-            (page)="onPageEvent($event)"
-            [pageSize]="pageSize"
-            [pageIndex]="pageIndex"
-            [length]="totalLength"
-            [pageSizeOptions]="pageSizeOptions"
-            aria-label="Select page">
-    </mat-paginator>
-    <table mat-table [dataSource]="dataSource"
-        matSort>
+      }
+      <table mat-table [dataSource]="dataSource" matSort>
         <ng-container matColumnDef="title">
-            <th mat-header-cell *matHeaderCellDef mat-sort-header> Title </th>
-            <td mat-cell *matCellDef="let product"> {{product.title}} </td>
+          <th mat-header-cell *matHeaderCellDef mat-sort-header>Title</th>
+          <td mat-cell *matCellDef="let product">{{ product.title }}</td>
         </ng-container>
 
         <ng-container matColumnDef="price">
-            <th mat-header-cell *matHeaderCellDef mat-sort-header> Price </th>
-            <td mat-cell *matCellDef="let product"> {{product.price | currency :'USD'}} </td>
+          <th mat-header-cell *matHeaderCellDef mat-sort-header>Price</th>
+          <td mat-cell *matCellDef="let product" class="num">{{ product.price | currency: 'USD' }}</td>
         </ng-container>
 
         <ng-container matColumnDef="stock">
-            <th mat-header-cell *matHeaderCellDef mat-sort-header> Stock </th>
-            <td mat-cell *matCellDef="let product"> {{product.stock}} </td>
+          <th mat-header-cell *matHeaderCellDef mat-sort-header>Stock</th>
+          <td mat-cell *matCellDef="let product" class="num">{{ product.stock }}</td>
         </ng-container>
 
         <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
-
-        <tr mat-row *matRowDef="let row; let i = index; columns: displayedColumns;" 
+        <tr mat-row *matRowDef="let row; let i = index; columns: displayedColumns;"
             class="clickable"
-            (click)="editProduct(row, i)">
+            tabindex="0"
+            (click)="editProduct(row, i)"
+            (keydown.enter)="editProduct(row, i)">
         </tr>
+      </table>
+    </div>
 
-    </table>
-    </mat-card-content>
-  </mat-card>
-</div>
+    <mat-paginator
+      (page)="onPageEvent($event)"
+      [pageSize]="pageSize"
+      [pageIndex]="pageIndex"
+      [length]="totalLength"
+      [pageSizeOptions]="pageSizeOptions"
+      aria-label="Select page">
+    </mat-paginator>
+  </div>
+</section>

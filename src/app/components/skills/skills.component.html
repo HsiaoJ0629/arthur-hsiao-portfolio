@@ -1,20 +1,33 @@
-<mat-card>
-    <mat-card-header>
-        <mat-card-title>SKILLS</mat-card-title>
-        <mat-card-subtitle><small>* Please click any skills below</small></mat-card-subtitle>
-    </mat-card-header>
-    <mat-card-content>
-        <mat-list>
-            <ng-container *ngFor="let skill of skills">
-                <mat-list-item class="mb-2 pb-2 pt-2" style="height: auto;">
-                    <h5 class="mt-0 mb-2">{{skill.category}}</h5>
-                    <div class="d-flex flex-wrap">
-                        <ng-container *ngFor="let item of skill.items">
-                            <mat-chip class="me-1 clickable" [highlighted]="selectedSkill === item" (click)="onSelectSkill(item)">{{item}}</mat-chip>
-                        </ng-container>
-                    </div>
-                </mat-list-item>
-            </ng-container>
-        </mat-list>
-    </mat-card-content>
-</mat-card>
+<aside class="panel" aria-labelledby="skills-heading">
+  <div class="head">
+    <h3 id="skills-heading">Skills</h3>
+    @if (selectedSkill) {
+      <button type="button" class="clear" (click)="clear()">Clear</button>
+    }
+  </div>
+  <p class="status" aria-live="polite">
+    @if (selectedSkill) {
+      Showing where I’ve used {{ selectedSkill }}.
+    } @else {
+      Pick a skill to see where I’ve used it.
+    }
+  </p>
+
+  @for (group of skills; track group.category) {
+    <div class="group">
+      <h4 class="cat">{{ group.category }}</h4>
+      <div class="chips">
+        @for (item of group.items; track item) {
+          <button
+            type="button"
+            class="chip"
+            [class.on]="item === selectedSkill"
+            [attr.aria-pressed]="item === selectedSkill"
+            (click)="onSelectSkill(item)">
+            {{ item }}
+          </button>
+        }
+      </div>
+    </div>
+  }
+</aside>

@@ -1,32 +1,29 @@
-<mat-card [class.history-card]="isHighlight" [class.flash-animation]="isHighlight && animationKey > 0" [attr.data-animation-key]="animationKey">
-  <mat-card-header>
-    <mat-card-title>WORK HISTORY</mat-card-title>
-  </mat-card-header>
-  <mat-card-content class="mt-3">
-    <mat-accordion multi>
-      <ng-container *ngFor="let wh of workHistorys">
-        <mat-expansion-panel [expanded]="wh.isOpen">
-          <mat-expansion-panel-header>
-            <ng-container *ngIf="!isMobile">
-              <mat-panel-title> {{wh.company}} </mat-panel-title>
-              <mat-panel-description>
-                <div class="w-100 d-flex justify-content-between">
-                  <div>{{wh.role}}</div>
-                  <div>{{displayDate(wh)}}</div>
-                </div>
-              </mat-panel-description>
-            </ng-container>
-            <div class="w-100 d-flex justify-content-between" *ngIf="isMobile">
-              <div>{{wh.company}}</div>
-              <div class="me-2">{{displayDate(wh)}}</div> 
-            </div>
-          </mat-expansion-panel-header>
-          <div *ngIf="isMobile">{{wh.role}}</div>
-          <ul>
-            <li *ngFor="let r of wh.responsibilities">{{r}}</li>
-          </ul>
-        </mat-expansion-panel>
-      </ng-container>
-    </mat-accordion>
-  </mat-card-content>
-</mat-card>
+<ol class="roles" aria-label="Work history">
+  @for (wh of workHistorys; track wh.company) {
+    <li class="role" [class.matched]="uses(wh)" [class.dimmed]="isDimmed(wh)">
+      <div class="top">
+        <div>
+          <h3 class="company">{{ wh.company }}</h3>
+          <p class="meta">{{ wh.role }} · {{ wh.sector }}</p>
+        </div>
+        <p class="years">{{ displayDate(wh) }}</p>
+      </div>
+
+      @if (uses(wh)) {
+        <p class="badge">Uses {{ selectedSkill }}</p>
+      }
+
+      <ul class="bullets">
+        @for (r of wh.responsibilities; track r) {
+          <li>{{ r }}</li>
+        }
+      </ul>
+
+      <ul class="tags" aria-label="Skills used">
+        @for (s of wh.skills; track s) {
+          <li [class.on]="s === selectedSkill">{{ s }}</li>
+        }
+      </ul>
+    </li>
+  }
+</ol>

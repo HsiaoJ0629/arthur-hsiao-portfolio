@@ -1,53 +1,37 @@
-import { Component, EventEmitter, Output } from '@angular/core';
-import { MaterialModule } from '../../modules/material.module';
+import { Component, EventEmitter, Input, Output } from '@angular/core';
+
+interface SkillGroup {
+  category: string;
+  items: string[];
+}
 
 @Component({
   selector: 'app-skills',
-  imports: [MaterialModule],
   templateUrl: './skills.component.html',
   styleUrl: './skills.component.scss',
 })
 export class SkillsComponent {
+  @Input() selectedSkill = '';
   @Output() selectSkill = new EventEmitter<string>();
-  selectedSkill: string = '';
-  skills: Skill[] = [
-    {
-      category: 'Programming Languages',
-      items: ['Java', 'TypeScript', 'JavaScript', 'HTML', 'CSS'],
-    },
-    {
-      category: 'Frontend Frameworks',
-      items: ['Angular', 'Angular Material', 'Bootstrap'],
-    },
-    {
-      category: 'Backend Frameworks',
-      items: ['Spring Boot', 'Node.js', 'Express.js'],
-    },
-    {
-      category: 'Databases',
-      items: ['MySQL', 'PostgreSQL'],
-    },
-    {
-      category: 'Tools and Technologies',
-      items: ['Docker', 'GIT', 'WildFly', 'AWS S3', 'AWS Textract'],
-    },
-    {
-      category: 'Development Practices',
-      items: [
-        'RESTful APIs',
-        'Agile Development',
-        'Microservices Architecture',
-      ],
-    },
+
+  skills: SkillGroup[] = [
+    { category: 'Languages', items: ['Java', 'TypeScript', 'JavaScript', 'HTML', 'CSS'] },
+    { category: 'Frontend', items: ['Angular', 'Angular Material', 'Bootstrap'] },
+    { category: 'Backend', items: ['Spring Boot', 'Node.js', 'Express.js'] },
+    { category: 'Databases', items: ['MySQL', 'PostgreSQL'] },
+    { category: 'Tools', items: ['Docker', 'GIT', 'WildFly', 'AWS S3', 'AWS Textract'] },
+    { category: 'Practices', items: ['RESTful APIs', 'Agile Development', 'Microservices Architecture'] },
   ];
 
+  /** Clicking the active skill again clears the filter. */
   onSelectSkill(skill: string) {
-    this.selectedSkill = skill;
-    this.selectSkill.emit(skill);
+    const next = skill === this.selectedSkill ? '' : skill;
+    this.selectedSkill = next;
+    this.selectSkill.emit(next);
   }
-}
 
-class Skill {
-  category: string = '';
-  items: string[] = [];
+  clear() {
+    this.selectedSkill = '';
+    this.selectSkill.emit('');
+  }
 }

@@ -1,14 +1,13 @@
 import { Routes } from '@angular/router';
 import { HomeComponent } from './components/home/home.component';
-import { AboutComponent } from './components/about/about.component';
-import { ContactComponent } from './components/contact/contact.component';
 import { DemoComponent } from './components/demo/demo.component';
 
+// The portfolio is now a single page; About and Contact live as sections on Home.
 export const routes: Routes = [
-  {path: 'home', component: HomeComponent},
-  {path: 'about', component: AboutComponent},
-  { path: 'contact', component: ContactComponent },
-  { path: 'demo', component: DemoComponent },
-  {path: '', redirectTo: '/home', pathMatch: 'full'}, // Default route
-  {path: '**', redirectTo: '/home'} // Wildcard route
+  { path: 'home', component: HomeComponent, title: 'Arthur Hsiao — Full Stack Developer' },
+  { path: 'demo', component: DemoComponent, title: 'Product management demo — Arthur Hsiao' },
+  { path: 'about', redirectTo: '/home' },
+  { path: 'contact', redirectTo: '/home' },
+  { path: '', redirectTo: '/home', pathMatch: 'full' },
+  { path: '**', redirectTo: '/home' }
 ];

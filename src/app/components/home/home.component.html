@@ -1,107 +1,78 @@
-<div class="home-container">
-  <!-- Hero Section -->
-  <div class="hero-section">
-    <div class="hero-content">
-      <h1 class="hero-title">Hi, I'm <span class="highlight">Arthur Hsiao</span></h1>
-      <h2 class="hero-subtitle">Full Stack Developer</h2>
-      <p class="hero-description">
-        I'm a passionate Full Stack Developer with over 5 years of experience building 
-        scalable, secure, and user-friendly applications. I specialize in modern web technologies 
-        and love turning complex problems into elegant solutions.
-      </p>
-      <div class="hero-actions">
-        <button mat-raised-button color="primary" routerLink="/about" class="hero-btn">
-          <mat-icon>person</mat-icon>
-          Learn More About Me
-        </button>
-        <button mat-stroked-button routerLink="/demo" class="hero-btn">
-          <mat-icon>code</mat-icon>
-          View My Work
-        </button>
-      </div>
+<!-- Hero -->
+<section id="top" class="page-wrap hero">
+  <div class="hero-copy">
+    <p class="eyebrow hero-eyebrow"><span class="status-dot"></span>Full Stack Developer · Open to new roles</p>
+    <h1 class="display hero-title">
+      I build dependable software for <span class="accent">finance</span> and <span class="accent">healthcare</span>.
+    </h1>
+    <p class="lede hero-lede">
+      Six years designing and shipping scalable, secure systems end to end — Spring Boot and Node.js services,
+      Angular front ends, and the databases and cloud infrastructure underneath.
+    </p>
+    <div class="hero-actions">
+      <a class="btn-pill primary" routerLink="/home" fragment="experience">
+        See my experience
+        <svg aria-hidden="true" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 5v14"/><path d="m19 12-7 7-7-7"/></svg>
+      </a>
+      <a class="btn-pill outline" routerLink="/demo">Try the live demo</a>
     </div>
   </div>
 
-  <!-- Quick Stats Section -->
-  <div class="stats-section">
-    <mat-card class="stat-card">
-      <mat-card-content>
-        <div class="stat-number">5+</div>
-        <div class="stat-label">Years Experience</div>
-      </mat-card-content>
-    </mat-card>
-    <mat-card class="stat-card">
-      <mat-card-content>
-        <div class="stat-number">Full Stack</div>
-        <div class="stat-label">Development</div>
-      </mat-card-content>
-    </mat-card>
-    <mat-card class="stat-card">
-      <mat-card-content>
-        <div class="stat-number">Modern</div>
-        <div class="stat-label">Technologies</div>
-      </mat-card-content>
-    </mat-card>
+  <figure class="code-card" aria-label="Profile summary written as code">
+    <div class="dots" aria-hidden="true"><span></span><span></span><span></span></div>
+    <pre><code><span class="c">// arthur.profile.ts</span>
+<span class="k">const</span> arthur = {{ '{' }}
+  role: <span class="s">'Full Stack Developer'</span>,
+  since: <span class="n">2020</span>,
+  backend: [<span class="s">'Java'</span>, <span class="s">'Spring Boot'</span>, <span class="s">'Node.js'</span>],
+  frontend: [<span class="s">'Angular'</span>, <span class="s">'TypeScript'</span>],
+  data: [<span class="s">'MySQL'</span>, <span class="s">'PostgreSQL'</span>],
+  ships: [<span class="s">'Docker'</span>, <span class="s">'AWS'</span>],
+  alsoMentors: <span class="k">true</span>,
+{{ '}' }};</code></pre>
+  </figure>
+</section>
+
+<!-- What I do -->
+<section id="work" class="band">
+  <div class="page-wrap section stack">
+    <div class="section-head">
+      <h2 class="h2">What I do</h2>
+      <p class="muted">Across the whole stack, from the API contract to the pixel — and the pipeline that ships it.</p>
+    </div>
+    <ol class="services">
+      @for (s of services; track s.title; let i = $index) {
+        <li>
+          <span class="num">{{ (i + 1).toString().padStart(2, '0') }}</span>
+          <h3>{{ s.title }}</h3>
+          <p>{{ s.text }}</p>
+        </li>
+      }
+    </ol>
   </div>
+</section>
 
-  <!-- Features Section -->
-  <mat-card class="features-card">
-    <mat-card-header>
-      <mat-card-title>
-        <mat-icon class="section-icon">star</mat-icon>
-        What I Do
-      </mat-card-title>
-    </mat-card-header>
-    <mat-card-content>
-      <div class="features-grid">
-        <div class="feature-item">
-          <mat-icon class="feature-icon">code</mat-icon>
-          <h3>Backend Development</h3>
-          <p>Build robust RESTful APIs and microservices using Java, Spring Boot, and Node.js</p>
-        </div>
-        <div class="feature-item">
-          <mat-icon class="feature-icon">web</mat-icon>
-          <h3>Frontend Development</h3>
-          <p>Create responsive and interactive UIs with Angular, TypeScript, and modern CSS</p>
-        </div>
-        <div class="feature-item">
-          <mat-icon class="feature-icon">storage</mat-icon>
-          <h3>Database Design</h3>
-          <p>Design and optimize databases using MySQL and PostgreSQL</p>
-        </div>
-        <div class="feature-item">
-          <mat-icon class="feature-icon">cloud</mat-icon>
-          <h3>Cloud & DevOps</h3>
-          <p>Deploy and manage applications using Docker, AWS, and modern CI/CD practices</p>
-        </div>
-      </div>
-    </mat-card-content>
-  </mat-card>
+<!-- Experience: summary, skills filter, work history -->
+<app-about></app-about>
 
-  <!-- Portfolio Information -->
-  <mat-card class="portfolio-card">
-    <mat-card-header>
-      <mat-card-title>
-        <mat-icon class="section-icon">description</mat-icon>
-        About This Portfolio
-      </mat-card-title>
-      <mat-card-subtitle>Technical Overview & Purpose</mat-card-subtitle>
-    </mat-card-header>
-    <mat-card-content>
-      <p class="portfolio-description">{{portfolioDescription}}</p>
-      
-      <div class="tech-stack-section">
-        <h4 class="tech-stack-title">
-          <mat-icon class="tech-icon">build</mat-icon>
-          Built With
-        </h4>
-        <div class="tech-list">
-          <mat-chip *ngFor="let tech of portfolioTech" class="tech-chip">
-            <mat-icon class="chip-icon">check_circle</mat-icon>
-            {{tech}}
-          </mat-chip>
-        </div>
-      </div>
-    </mat-card-content>
-  </mat-card>
-</div>
+<!-- Demo teaser -->
+<section id="demo" class="page-wrap demo-teaser-wrap">
+  <div class="demo-teaser">
+    <div class="demo-copy">
+      <span class="eyebrow">Interactive demo</span>
+      <h2 class="demo-title">Product management system</h2>
+      <p class="muted">
+        Search, sort, page through and edit products against a live REST API — built with Angular and Angular Material.
+      </p>
+      <ul class="tag-list" aria-label="Demo features">
+        @for (f of demoFeatures; track f) {
+          <li class="tag">{{ f }}</li>
+        }
+      </ul>
+    </div>
+    <a class="btn-pill dark" routerLink="/demo">
+      Open the demo
+      <svg aria-hidden="true" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg>
+    </a>
+  </div>
+</section>

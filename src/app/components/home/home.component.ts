@@ -1,25 +1,25 @@
 import { Component } from '@angular/core';
-import { MaterialModule } from '../../modules/material.module';
-import { RouterModule } from '@angular/router';
+import { RouterLink } from '@angular/router';
+import { AboutComponent } from '../about/about.component';
+
+interface Service {
+  title: string;
+  text: string;
+}
 
 @Component({
   selector: 'app-home',
-  imports: [ MaterialModule, RouterModule ],
+  imports: [RouterLink, AboutComponent],
   templateUrl: './home.component.html',
   styleUrl: './home.component.scss'
 })
 export class HomeComponent {
-  portfolioDescription: string = 'This portfolio website showcases my professional experience, technical expertise, and development capabilities. ' +
-    'Built with Angular 19, Angular Material, and modern web technologies, it demonstrates my proficiency in creating ' +
-    'responsive, performant, and user-friendly applications. Explore my work history, technical skills, and interactive ' +
-    'demos that highlight my full-stack development capabilities.';
-  
-  portfolioTech: string[] = [
-    'Angular 19 with Server-Side Rendering (SSR)',
-    'Angular Material Design System',
-    'TypeScript & Modern JavaScript',
-    'Responsive Web Design',
-    'RESTful API Integration',
-    'Progressive Web App Features'
+  services: Service[] = [
+    { title: 'Backend', text: 'RESTful APIs and microservices in Java, Spring Boot and Node.js.' },
+    { title: 'Frontend', text: 'Responsive, interactive interfaces with Angular, TypeScript and modern CSS.' },
+    { title: 'Databases', text: 'Schema design and query tuning in MySQL and PostgreSQL.' },
+    { title: 'Cloud & DevOps', text: 'Containerised deploys on Docker and AWS with CI/CD pipelines.' }
   ];
+
+  demoFeatures: string[] = ['Real-time search', 'Sorting', 'Pagination', 'CRUD', 'REST API'];
 }

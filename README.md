@@ -1,6 +1,6 @@
 # Arthur Hsiao - Full Stack Developer Portfolio
 
-Demo: https://hsiaoj0629.github.io/my-angular-app/home
+Demo: https://hsiaoj0629.github.io/arthur-hsiao-portfolio/home
 
 A professional portfolio website showcasing my skills, experience, and projects. Built with Angular 19, Angular Material, and modern web technologies.
 
@@ -81,7 +81,7 @@ This project is configured for deployment to GitHub Pages. There are two methods
 3. **The workflow will automatically:**
    - Build your Angular app for static hosting
    - Deploy it to GitHub Pages
-   - Your site will be available at `https://[username].github.io/my-angular-app/`
+   - Your site will be available at `https://[username].github.io/arthur-hsiao-portfolio/`
 
 **Note:** The workflow triggers on pushes to the `main` branch. If your default branch is `master`, update `.github/workflows/deploy.yml` to use `master` instead.
 
@@ -106,7 +106,7 @@ This project is configured for deployment to GitHub Pages. There are two methods
 
 ### Important Notes
 
-- **Base Href:** The app is configured with base href `/my-angular-app/` for GitHub Pages. If your repository has a different name, update the `--base-href` flag in `package.json` scripts.
+- **Base Href:** The app is configured with base href `/arthur-hsiao-portfolio/` for GitHub Pages. If your repository has a different name, update the `--base-href` flag in `package.json` scripts.
 - **Custom Domain:** If you're using a custom domain, change the base href to `/` in the build script.
 - **SSR:** GitHub Pages only supports static sites, so SSR is disabled for the `ghpages` build configuration.
 

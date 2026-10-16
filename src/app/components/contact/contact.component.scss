@@ -1,181 +1,81 @@
-.contact-container {
-  max-width: 900px;
-  margin: 0 auto;
-  padding: 2rem 1rem;
+:host { display: block; }
+
+.contact {
+  background: var(--ink);
+  color: #FFFFFF;
 }
 
-.contact-card, .availability-card {
-  margin-bottom: 2rem;
-  animation: fadeInUp 0.6s ease-out;
-}
-
-.section-icon {
-  vertical-align: middle;
-  margin-right: 0.5rem;
-  color: var(--mat-sys-inverse-primary);
-}
-
-.contact-info {
+.inner {
   display: flex;
   flex-direction: column;
-  gap: 1.5rem;
-  margin-top: 1rem;
+  gap: 40px;
+  padding-top: 104px;
+  padding-bottom: 48px;
+
+  @media (max-width: 600px) { padding-top: 72px; }
 }
 
-.contact-item {
+.status {
+  margin: 0;
+  font-size: 14px;
+  text-transform: none;
+  letter-spacing: 0;
+  color: var(--on-dark-muted);
+
+  .status-dot { background: #9ECAFF; }
+}
+
+.title {
+  max-width: 900px;
+  font-size: clamp(40px, 5.5vw, 76px);
+}
+
+.links {
   display: flex;
-  align-items: center;
-  padding: 1.5rem;
-  border-radius: 8px;
-  background: var(--mat-sys-surface-container);
-  cursor: pointer;
-  transition: all 0.3s ease;
-  border: 2px solid transparent;
-
-  &:hover {
-    transform: translateX(10px);
-    box-shadow: 0 4px 12px rgba(0,0,0,0.1);
-    border-color: var(--mat-sys-inverse-primary);
-  }
+  flex-wrap: wrap;
+  gap: 16px;
 }
 
-.contact-icon-wrapper {
-  width: 60px;
-  height: 60px;
-  border-radius: 50%;
+.link {
+  flex: 1 1 340px;
+  min-width: 0;
   display: flex;
-  align-items: center;
-  justify-content: center;
-  margin-right: 1.5rem;
-  flex-shrink: 0;
+  flex-direction: column;
+  gap: 6px;
+  padding: 24px 28px;
+  border-radius: var(--radius);
+  text-decoration: none;
+  transition: background-color .15s, border-color .15s;
 
-  mat-icon {
-    font-size: 30px;
-    width: 30px;
-    height: 30px;
-    color: white;
-  }
+  &.light { background: #FFFFFF; color: var(--ink); }
+  &.light:hover { background: #E3EDF7; color: var(--ink); }
 
-  &.email {
-    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-  }
-
-  &.linkedin {
-    background: linear-gradient(135deg, #0077b5 0%, #00a0dc 100%);
-  }
+  &.ghost { border: 1.5px solid #3A4A5C; color: #FFFFFF; }
+  &.ghost:hover { border-color: #9ECAFF; color: #FFFFFF; }
 }
 
-.contact-details {
-  flex: 1;
-
-  h3 {
-    margin: 0 0 0.5rem 0;
-    font-size: 1.2rem;
-    font-weight: 500;
-    color: var(--mat-sys-on-surface);
-  }
-
-  p {
-    margin: 0 0 0.25rem 0;
-    color: var(--mat-sys-on-surface);
-    opacity: 0.8;
-  }
-
-  .contact-action {
-    font-size: 0.85rem;
-    color: var(--mat-sys-inverse-primary);
-    opacity: 0.8;
-  }
+.label {
+  font-family: var(--font-mono);
+  font-size: 13px;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  opacity: 0.75;
 }
 
-.availability-card {
-  mat-card-content {
-    p {
-      line-height: 1.8;
-      margin-bottom: 1rem;
-      color: var(--mat-sys-on-surface);
-    }
-  }
+.value {
+  font-size: clamp(18px, 2vw, 24px);
+  font-weight: 600;
+  overflow-wrap: anywhere;
 }
 
-.availability-status {
+.foot {
   display: flex;
-  align-items: center;
-  gap: 0.5rem;
-  padding: 1rem;
-  background: var(--mat-sys-primary-container);
-  border-radius: 8px;
-  margin-top: 1rem;
-
-  .status-icon {
-    color: var(--mat-sys-inverse-primary);
-  }
-
-  span {
-    font-weight: 500;
-    color: var(--mat-sys-on-primary-container);
-  }
-}
-
-@keyframes fadeInUp {
-  from {
-    opacity: 0;
-    transform: translateY(30px);
-  }
-  to {
-    opacity: 1;
-    transform: translateY(0);
-  }
-}
-
-@media (max-width: 768px) {
-  .contact-container {
-    padding: 1.5rem 0.75rem;
-  }
-  
-  .contact-item {
-    flex-direction: column;
-    text-align: center;
-    padding: 1rem;
-
-    &:hover {
-      transform: translateY(-5px);
-    }
-  }
-
-  .contact-icon-wrapper {
-    margin-right: 0;
-    margin-bottom: 1rem;
-  }
-}
-
-@media (max-width: 480px) {
-  .contact-container {
-    padding: 1rem 0.5rem;
-  }
-  
-  .contact-item {
-    padding: 0.75rem;
-  }
-  
-  .contact-icon-wrapper {
-    width: 50px;
-    height: 50px;
-    
-    mat-icon {
-      font-size: 24px;
-      width: 24px;
-      height: 24px;
-    }
-  }
-  
-  .contact-details {
-    h3 {
-      font-size: 1.1rem;
-    }
-    
-    p {
-      font-size: 0.9rem;
-    }
-  }
+  flex-wrap: wrap;
+  justify-content: space-between;
+  gap: 12px;
+  margin-top: 32px;
+  padding-top: 32px;
+  border-top: 1px solid #22344A;
+  font-size: 14px;
+  color: var(--on-dark-muted);
 }

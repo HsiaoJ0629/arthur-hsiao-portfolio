@@ -1,54 +1,22 @@
-<div class="contact-container">
-  <mat-card class="contact-card">
-    <mat-card-header>
-      <mat-card-title>
-        <mat-icon class="section-icon">contact_mail</mat-icon>
-        Get In Touch
-      </mat-card-title>
-      <mat-card-subtitle>I'm always open to discussing new opportunities and interesting projects</mat-card-subtitle>
-    </mat-card-header>
-    <mat-card-content>
-      <div class="contact-info">
-        <div class="contact-item" (click)="openEmail()">
-          <div class="contact-icon-wrapper email">
-            <mat-icon>email</mat-icon>
-          </div>
-          <div class="contact-details">
-            <h3>Email</h3>
-            <p>{{email}}</p>
-            <span class="contact-action">Click to send an email</span>
-          </div>
-        </div>
+<section id="contact" class="contact">
+  <div class="page-wrap inner">
+    <p class="eyebrow status"><span class="status-dot"></span>Available for new opportunities</p>
+    <h2 class="display title">Have a role or a project in mind? Let’s talk.</h2>
 
-        <div class="contact-item" (click)="openLinkedIn()">
-          <div class="contact-icon-wrapper linkedin">
-            <mat-icon>work</mat-icon>
-          </div>
-          <div class="contact-details">
-            <h3>LinkedIn</h3>
-            <p>Connect with me on LinkedIn</p>
-            <span class="contact-action">View my professional profile</span>
-          </div>
-        </div>
-      </div>
-    </mat-card-content>
-  </mat-card>
+    <div class="links">
+      <a class="link light" [href]="mailto">
+        <span class="label">Email</span>
+        <span class="value">{{ email }}</span>
+      </a>
+      <a class="link ghost" [href]="linkedInUrl" target="_blank" rel="noopener">
+        <span class="label">LinkedIn</span>
+        <span class="value">Connect with me</span>
+      </a>
+    </div>
 
-  <mat-card class="availability-card">
-    <mat-card-header>
-      <mat-card-title>
-        <mat-icon class="section-icon">schedule</mat-icon>
-        Availability
-      </mat-card-title>
-    </mat-card-header>
-    <mat-card-content>
-      <p>I'm currently open to new opportunities and would love to hear from you. 
-         Whether you have a project in mind, a job opportunity, or just want to connect, 
-         feel free to reach out!</p>
-      <div class="availability-status">
-        <mat-icon class="status-icon">check_circle</mat-icon>
-        <span>Available for new opportunities</span>
-      </div>
-    </mat-card-content>
-  </mat-card>
-</div>
+    <footer class="foot">
+      <span>© {{ year }} Arthur Hsiao</span>
+      <span>Built with Angular 19 · SSR · Angular Material</span>
+    </footer>
+  </div>
+</section>

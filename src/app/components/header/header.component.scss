@@ -1,28 +1,98 @@
-.spacer {
-  flex: 1 1 auto;
-}
-
-.header-toolbar {
+.site-header {
   position: sticky;
   top: 0;
   z-index: 1000;
-  box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+  background: rgba(243, 245, 247, 0.88);
+  backdrop-filter: saturate(140%) blur(10px);
+  border-bottom: 1px solid transparent;
 }
 
-.header-title {
-  font-weight: 500;
-  font-size: 1.2rem;
-  margin-right: 0.5rem;
+.bar {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px 20px;
+  padding-top: 18px;
+  padding-bottom: 18px;
 }
 
-.header-subtitle {
-  font-size: 0.9rem;
-  opacity: 0.8;
-  font-weight: 300;
+.brand {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  text-decoration: none;
+  color: var(--ink);
 }
 
-@media (max-width: 600px) {
-  .header-subtitle {
-    display: none;
+.mark {
+  width: 44px;
+  height: 44px;
+  border-radius: 10px;
+  background: var(--ink);
+  color: #FFFFFF;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: var(--font-display);
+  font-weight: 700;
+  font-size: 17px;
+  letter-spacing: 0.02em;
+}
+
+.name { font-weight: 600; font-size: 16px; }
+
+.nav {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 4px;
+
+  a {
+    display: inline-flex;
+    align-items: center;
+    min-height: 44px;
+    padding: 0 14px;
+    font-size: 15px;
+    font-weight: 500;
+    text-decoration: none;
+    color: var(--ink);
+    border-radius: 999px;
+  }
+
+  a:hover, a.active { color: var(--accent); }
+
+}
+
+.nav { margin-left: auto; }
+
+.cta {
+  display: inline-flex;
+  align-items: center;
+  min-height: 44px;
+  padding: 0 18px;
+  border-radius: 999px;
+  font-size: 15px;
+  font-weight: 600;
+  text-decoration: none;
+  background: var(--ink);
+  color: #FFFFFF;
+
+  &:hover { background: #1C3048; color: #FFFFFF; }
+}
+
+/* Phones: brand + CTA on one row, section links below; header scrolls away
+   instead of sticking so it doesn't take a quarter of the screen. */
+@media (max-width: 640px) {
+  .site-header { position: static; }
+  .bar { padding-top: 12px; padding-bottom: 8px; row-gap: 4px; }
+  .name { display: none; }
+  .cta { order: 2; margin-left: auto; }
+  .nav {
+    order: 3;
+    width: 100%;
+    margin-left: -10px;
+    gap: 0;
+    a { padding: 0 10px; font-size: 15px; }
   }
 }

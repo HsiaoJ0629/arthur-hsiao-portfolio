@@ -1,14 +1,11 @@
-<div class="about-container">
-    <div class="about-grid">
-        <div class="about-column left-column">
-            <app-summary></app-summary>
-            <div class="spacing"></div>
-            <app-history [selectedSkill]="selectedSkill"></app-history>
-        </div>
-        <div class="about-column right-column">
-            <app-skills (selectSkill)="onSelectSkill($event)"></app-skills>
-        </div>
-    </div>
-</div>
+<section id="experience" class="page-wrap section experience">
+  <div class="intro">
+    <h2 class="h2">Experience</h2>
+    <app-summary></app-summary>
+  </div>
 
-
+  <div class="layout">
+    <app-skills class="skills-col" [selectedSkill]="selectedSkill" (selectSkill)="onSelectSkill($event)"></app-skills>
+    <app-history class="history-col" [selectedSkill]="selectedSkill"></app-history>
+  </div>
+</section>

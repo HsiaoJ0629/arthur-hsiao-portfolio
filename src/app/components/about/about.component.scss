@@ -1,83 +1,38 @@
-:host {
-  display: block;
-  width: 100%;
-  min-height: 100%;
-}
+:host { display: block; }
 
-.about-container {
-  width: 100%;
-  max-width: 1400px;
-  margin: 0 auto;
-  padding: 2rem 1rem;
-  box-sizing: border-box;
-}
-
-.about-grid {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 2rem;
-  width: 100%;
-  animation: fadeIn 0.6s ease-out;
-}
-
-.about-column {
+.experience {
   display: flex;
   flex-direction: column;
-  width: 100%;
+  gap: 48px;
 }
 
-.left-column {
-  gap: 1.5rem;
+.intro {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  max-width: 820px;
 }
 
-.right-column {
-  // Skills column
+.layout {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: flex-start;
+  gap: 40px;
 }
 
-.spacing {
-  margin: 1rem 0;
+.skills-col {
+  flex: 1 1 320px;
+  min-width: 0;
 }
 
-@keyframes fadeIn {
-  from {
-    opacity: 0;
-  }
-  to {
-    opacity: 1;
-  }
+.history-col {
+  flex: 999 1 560px;
+  min-width: 0;
 }
 
-@media (max-width: 968px) {
-  .about-grid {
-    grid-template-columns: 1fr;
-    gap: 1.5rem;
-  }
-  
-  .about-container {
-    padding: 1.5rem 1rem;
-  }
-}
-
-@media (max-width: 768px) {
-  .about-container {
-    padding: 1rem 0.75rem;
-  }
-  
-  .about-grid {
-    gap: 1rem;
-  }
-}
-
-@media (max-width: 480px) {
-  .about-container {
-    padding: 0.75rem 0.5rem;
-  }
-  
-  .about-grid {
-    gap: 0.75rem;
-  }
-  
-  .left-column {
-    gap: 1rem;
+@media (min-width: 960px) {
+  .skills-col {
+    position: sticky;
+    top: 100px;
   }
 }
