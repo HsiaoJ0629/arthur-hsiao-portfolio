@@ -132,7 +132,7 @@ Global styles are in [src/styles.scss](src/styles.scss), and the Material theme 
 ## Project layout
 
 ```
-my-angular-app/
+arthur-hsiao-portfolio/
 ├── .github/workflows/deploy.yml   CI: build + deploy to GitHub Pages on push to master
 ├── angular.json                   build configs (production, development, ghpages)
 ├── _theme-colors.scss             Material theme palette
