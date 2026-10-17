@@ -24,23 +24,70 @@ html {
 }
 
 :root {
+  /* Colour: ink + neutrals */
   --ink: #0B1B2E;
   --ink-2: #24313F;
+  --ink-hover: #1C3048;
   --muted: #3F4D5C;
   --ground: #F3F5F7;
   --surface: #FFFFFF;
   --line: #DCE2E8;
   --line-strong: #C5CFD9;
   --chip: #EEF2F6;
-  --accent: #0061A3;
-  --on-dark-muted: #B8C6D4;
 
+  /* Colour: accent (#0061A3 is 6.4:1 on white, 5.8:1 on --ground) */
+  --accent: #0061A3;
+  --accent-hover: #004C80;
+  --accent-soft: #E3EDF7;
+
+  /* Colour: on dark (ink) surfaces */
+  --on-dark: #FFFFFF;
+  --on-dark-muted: #B8C6D4;
+  --on-dark-accent: #9ECAFF;
+  --on-dark-line: #5B6C80;   /* >= 3:1 against --ink, for control borders */
+  --on-dark-divider: #22344A;
+
+  /* Colour: status (AA on their soft backgrounds, and as toast fills with white text) */
+  --success: #1E6B34;
+  --success-soft: #E6F4EA;
+  --danger: #8A1C1C;
+  --danger-soft: #FDECEC;
+
+  /* Focus ring; dark surfaces swap it for --on-dark-accent via .on-dark */
+  --focus-ring: var(--accent);
+
+  /* Type */
   --font-display: 'Bricolage Grotesque', 'Helvetica Neue', sans-serif;
   --font-body: 'IBM Plex Sans', 'Helvetica Neue', sans-serif;
   --font-mono: 'IBM Plex Mono', ui-monospace, monospace;
+  --text-xs: 13px;
+  --text-sm: 14px;
+  --text-md: 15px;
+  --text-base: 16px;
+  --text-lg: 19px;
+  --text-panel-title: 26px;
 
+  /* Shape, depth, motion */
   --container: 1240px;
+  --radius-sm: 6px;
+  --radius-md: 12px;
   --radius: 16px;
+  --radius-lg: 20px;
+  --radius-pill: 999px;
+  --shadow-float: 0 30px 60px -30px rgba(11, 27, 46, 0.55);
+  --shadow-ring: 0 0 0 4px var(--accent-soft);
+  --ease: cubic-bezier(0.2, 0.7, 0.2, 1);
+  --dur: 0.16s;
+
+  /* Rhythm */
+  --section-y: 96px;
+  --gutter: 32px;
+  --header-offset: 96px;
+
+  @media (max-width: 600px) {
+    --section-y: 64px;
+    --gutter: 20px;
+  }
 
   @include mat.toolbar-overrides((
     container-background-color: var(--surface),
@@ -49,7 +96,7 @@ html {
 
 html {
   scroll-behavior: smooth;
-  scroll-padding-top: 96px;
+  scroll-padding-top: var(--header-offset);
 
   @media (max-width: 640px) { scroll-padding-top: 16px; }
 }
@@ -67,28 +114,56 @@ body {
 a { color: var(--ink); }
 a:hover { color: var(--accent); }
 
+::selection { background: #CDE3F7; color: var(--ink); }
+
 :focus-visible {
-  outline: 2px solid var(--accent);
+  outline: 2px solid var(--focus-ring);
   outline-offset: 3px;
 }
+
+/* Dark surfaces: the default accent ring is only ~2.7:1 against ink */
+.on-dark { --focus-ring: var(--on-dark-accent); }
+
+/* Reduced motion: no smooth scrolling, no transitions */
+@media (prefers-reduced-motion: reduce) {
+  html { scroll-behavior: auto; }
+  *, *::before, *::after {
+    transition-duration: 0.01ms !important;
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+  }
+}
+
+/* Skip link: off-screen until it receives keyboard focus */
+.skip-link {
+  position: absolute;
+  top: 12px;
+  left: 12px;
+  z-index: 1100;
+  padding: 10px 18px;
+  border-radius: var(--radius-pill);
+  background: var(--ink);
+  color: var(--on-dark);
+  font-weight: 600;
+  font-size: var(--text-md);
+  text-decoration: none;
+  transform: translateY(-200%);
+  transition: transform var(--dur) var(--ease);
+
+  &:focus-visible { transform: none; color: var(--on-dark); }
+}
+
+main:focus { outline: none; }
 
 /* ---------- Layout ---------- */
 .page-wrap {
   max-width: var(--container);
   margin: 0 auto;
-  padding-left: 32px;
-  padding-right: 32px;
-
-  @media (max-width: 600px) {
-    padding-left: 20px;
-    padding-right: 20px;
-  }
+  padding-left: var(--gutter);
+  padding-right: var(--gutter);
 }
 
-.section { padding-top: 96px; padding-bottom: 96px; }
-@media (max-width: 600px) {
-  .section { padding-top: 64px; padding-bottom: 64px; }
-}
+.section { padding-top: var(--section-y); padding-bottom: var(--section-y); }
 
 /* ---------- Type ---------- */
 .display {
@@ -107,21 +182,24 @@ a:hover { color: var(--accent); }
   font-size: clamp(34px, 4vw, 52px);
   line-height: 1.05;
   letter-spacing: -0.02em;
+  text-wrap: balance;
 }
 
 .lede {
   margin: 0;
-  font-size: 19px;
+  font-size: clamp(17px, 1rem + 0.3vw, 19px);
   color: var(--muted);
   text-wrap: pretty;
 }
+
+.muted { color: var(--muted); }
 
 .eyebrow {
   display: inline-flex;
   align-items: center;
   gap: 10px;
   font-family: var(--font-mono);
-  font-size: 13px;
+  font-size: var(--text-xs);
   letter-spacing: 0.08em;
   text-transform: uppercase;
   color: var(--muted);
@@ -132,6 +210,7 @@ a:hover { color: var(--accent); }
   height: 9px;
   border-radius: 50%;
   background: var(--accent);
+  box-shadow: 0 0 0 4px rgba(0, 97, 163, 0.14);
   flex: none;
 }
 
@@ -139,27 +218,33 @@ a:hover { color: var(--accent); }
 .btn-pill {
   display: inline-flex;
   align-items: center;
+  justify-content: center;
   gap: 10px;
   min-height: 52px;
   padding: 0 24px;
-  border-radius: 999px;
+  border-radius: var(--radius-pill);
   border: 1.5px solid transparent;
+  font-family: var(--font-body);
   font-weight: 600;
-  font-size: 16px;
+  font-size: var(--text-base);
   text-decoration: none;
   cursor: pointer;
-  transition: background-color .15s, color .15s, border-color .15s;
+  transition: background-color var(--dur), color var(--dur), border-color var(--dur), transform var(--dur) var(--ease);
 
-  svg { flex: none; }
+  svg { flex: none; transition: transform var(--dur) var(--ease); }
+  &:hover svg { transform: translateX(2px); }
+  &:active:not(:disabled) { transform: translateY(1px); }
 
-  &.primary { background: var(--accent); color: #FFFFFF; }
-  &.primary:hover { background: #004C80; color: #FFFFFF; }
+  &.primary { background: var(--accent); color: var(--on-dark); }
+  &.primary:hover { background: var(--accent-hover); color: var(--on-dark); }
 
-  &.dark { background: var(--ink); color: #FFFFFF; }
-  &.dark:hover { background: #1C3048; color: #FFFFFF; }
+  &.dark { background: var(--ink); color: var(--on-dark); }
+  &.dark:hover { background: var(--ink-hover); color: var(--on-dark); }
 
   &.outline { border-color: var(--ink); color: var(--ink); background: transparent; }
-  &.outline:hover { background: var(--ink); color: #FFFFFF; }
+  &.outline:hover { background: var(--ink); color: var(--on-dark); }
+
+  &:disabled { opacity: 0.5; cursor: not-allowed; }
 }
 
 /* ---------- Tags ---------- */
@@ -173,31 +258,89 @@ a:hover { color: var(--accent); }
 }
 
 .tag {
-  font-size: 14px;
+  font-size: var(--text-sm);
   padding: 6px 12px;
-  border-radius: 999px;
+  border-radius: var(--radius-pill);
   background: var(--chip);
   color: var(--ink-2);
 }
 
+/* ---------- Demo pages (shared by /demo and /mfa-demo) ---------- */
+.demo-page {
+  display: flex;
+  flex-direction: column;
+  gap: 40px;
+  padding-top: 56px;
+  padding-bottom: var(--section-y);
+
+  @media (max-width: 640px) { gap: 28px; padding-top: 32px; }
+}
+
+.page-intro {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  max-width: 820px;
+
+  strong { font-weight: 600; color: var(--ink); }
+}
+
+.page-title { font-size: clamp(38px, 5vw, 64px); }
+
+.surface-panel {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  min-width: 0;
+  padding: 32px;
+  border: 1px solid var(--line);
+  border-radius: var(--radius-lg);
+  background: var(--surface);
+
+  @media (max-width: 600px) { padding: 24px 16px; }
+}
+
+.panel-title {
+  margin: 0;
+  font-family: var(--font-display);
+  font-size: var(--text-panel-title);
+  font-weight: 700;
+  letter-spacing: -0.01em;
+  line-height: 1.2;
+}
+
+.hint { margin: 4px 0 0; font-size: var(--text-md); color: var(--muted); }
+
 /* ---------- Material tweaks ---------- */
-table tr.clickable:hover {
+table tr.clickable { transition: background-color var(--dur); }
+table tr.clickable:hover,
+table tr.clickable:focus-visible {
   background: var(--chip);
 }
 
 .clickable { cursor: pointer; }
 
 button.tertiary-btn {
-  color: #FFFFFF !important;
+  color: var(--on-dark) !important;
   background: var(--ink) !important;
 }
 
 button.tertiary-btn:hover {
-  background: #1C3048 !important;
+  background: var(--ink-hover) !important;
 }
 
-.ngx-toastr {
+/* ---------- Toasts ---------- */
+/* ngx-toastr's default fills (#51A351, #BD362F) fall below 4.5:1 with white text */
+.toast-container .ngx-toastr {
   width: 30% !important;
+  padding: 16px 20px 16px 52px;
+  border-radius: var(--radius-md);
+  font-family: var(--font-body);
+  font-size: var(--text-md);
+  box-shadow: 0 12px 32px -12px rgba(11, 27, 46, 0.45);
+  background-position: 18px center;
+
+  &:hover { box-shadow: 0 12px 32px -12px rgba(11, 27, 46, 0.6); }
 
   @media (max-width: 768px) {
     width: 90% !important;
@@ -209,3 +352,8 @@ button.tertiary-btn:hover {
     font-size: 0.9rem !important;
   }
 }
+
+.toast-container .toast-success { background-color: var(--success); }
+.toast-container .toast-error { background-color: var(--danger); }
+.toast-container .toast-info { background-color: var(--accent); }
+.toast-container .toast-warning { background-color: #7A4D00; }

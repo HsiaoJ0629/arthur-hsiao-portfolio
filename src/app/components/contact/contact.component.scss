@@ -2,7 +2,7 @@
 
 .contact {
   background: var(--ink);
-  color: #FFFFFF;
+  color: var(--on-dark);
 }
 
 .inner {
@@ -17,12 +17,12 @@
 
 .status {
   margin: 0;
-  font-size: 14px;
+  font-size: var(--text-sm);
   text-transform: none;
   letter-spacing: 0;
   color: var(--on-dark-muted);
 
-  .status-dot { background: #9ECAFF; }
+  .status-dot { background: var(--on-dark-accent); box-shadow: 0 0 0 4px rgba(158, 202, 255, 0.18); }
 }
 
 .title {
@@ -45,18 +45,21 @@
   padding: 24px 28px;
   border-radius: var(--radius);
   text-decoration: none;
-  transition: background-color .15s, border-color .15s;
+  transition: background-color var(--dur), border-color var(--dur), transform var(--dur) var(--ease);
 
-  &.light { background: #FFFFFF; color: var(--ink); }
-  &.light:hover { background: #E3EDF7; color: var(--ink); }
+  &:hover { transform: translateY(-2px); }
 
-  &.ghost { border: 1.5px solid #3A4A5C; color: #FFFFFF; }
-  &.ghost:hover { border-color: #9ECAFF; color: #FFFFFF; }
+  &.light { background: var(--surface); color: var(--ink); }
+  &.light:hover { background: var(--accent-soft); color: var(--ink); }
+
+  /* --on-dark-line keeps the card edge at >= 3:1 against the ink background */
+  &.ghost { border: 1.5px solid var(--on-dark-line); color: var(--on-dark); }
+  &.ghost:hover { border-color: var(--on-dark-accent); background: rgba(255, 255, 255, 0.04); color: var(--on-dark); }
 }
 
 .label {
   font-family: var(--font-mono);
-  font-size: 13px;
+  font-size: var(--text-xs);
   letter-spacing: 0.08em;
   text-transform: uppercase;
   opacity: 0.75;
@@ -75,7 +78,7 @@
   gap: 12px;
   margin-top: 32px;
   padding-top: 32px;
-  border-top: 1px solid #22344A;
-  font-size: 14px;
+  border-top: 1px solid var(--on-dark-divider);
+  font-size: var(--text-sm);
   color: var(--on-dark-muted);
 }

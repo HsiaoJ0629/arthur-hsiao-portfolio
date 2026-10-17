@@ -1,9 +1,9 @@
-<section class="page-wrap mfa">
+<section class="page-wrap demo-page">
   <app-demo-nav></app-demo-nav>
 
-  <header class="intro">
+  <header class="page-intro">
     <span class="eyebrow">Interactive demo</span>
-    <h1 class="display title">Multi-factor authentication</h1>
+    <h1 class="display page-title">Multi-factor authentication</h1>
     <p class="lede">
       I implemented OTP and TOTP second factors across Attvest's financial platforms. This page re-implements
       <strong>TOTP (RFC 6238)</strong> with no libraries — just the <strong>Web Crypto API</strong> — and runs both
@@ -22,7 +22,7 @@
 
   <div class="panels">
     <!-- Authenticator -->
-    <div class="panel">
+    <div class="surface-panel">
       <div>
         <span class="step">01</span>
         <h2 class="panel-title">Authenticator</h2>
@@ -42,7 +42,7 @@
         </div>
       </div>
 
-      <div class="code-box">
+      <div class="code-box on-dark">
         <span class="eyebrow">Current code</span>
         <span class="code-value" data-testid="current-code">{{ codes?.current ?? '—' }}</span>
         <div class="timer" role="progressbar" aria-label="Time left on the current code"
@@ -75,7 +75,7 @@
     </div>
 
     <!-- Server -->
-    <div class="panel">
+    <div class="surface-panel">
       <div>
         <span class="step">02</span>
         <h2 class="panel-title">Server verification</h2>
@@ -120,7 +120,7 @@
   </div>
 
   <!-- How it works -->
-  <div class="panel">
+  <div class="surface-panel">
     <h2 class="panel-title">How a code is made</h2>
     <ol class="list steps">
       <li><strong>Counter.</strong> T = floor(unix time ÷ 30), written as an 8-byte big-endian integer. JavaScript's bitwise operators are 32-bit, so it is written as two 32-bit halves.</li>

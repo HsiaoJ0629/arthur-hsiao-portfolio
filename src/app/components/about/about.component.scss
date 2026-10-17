@@ -33,6 +33,6 @@
 @media (min-width: 960px) {
   .skills-col {
     position: sticky;
-    top: 100px;
+    top: calc(var(--header-offset) + 4px);
   }
 }

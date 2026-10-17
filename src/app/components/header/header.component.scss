@@ -4,7 +4,8 @@
   z-index: 1000;
   background: rgba(243, 245, 247, 0.88);
   backdrop-filter: saturate(140%) blur(10px);
-  border-bottom: 1px solid transparent;
+  /* Hairline so content scrolling under the translucent bar stays separated */
+  border-bottom: 1px solid var(--line);
 }
 
 .bar {
@@ -13,16 +14,20 @@
   align-items: center;
   justify-content: space-between;
   gap: 12px 20px;
-  padding-top: 18px;
-  padding-bottom: 18px;
+  padding-top: 16px;
+  padding-bottom: 16px;
 }
 
 .brand {
   display: flex;
   align-items: center;
   gap: 12px;
+  border-radius: var(--radius-md);
   text-decoration: none;
   color: var(--ink);
+
+  &:hover { color: var(--ink); }
+  &:hover .mark { background: var(--accent); }
 }
 
 .mark {
@@ -30,7 +35,7 @@
   height: 44px;
   border-radius: 10px;
   background: var(--ink);
-  color: #FFFFFF;
+  color: var(--on-dark);
   display: flex;
   align-items: center;
   justify-content: center;
@@ -38,47 +43,65 @@
   font-weight: 700;
   font-size: 17px;
   letter-spacing: 0.02em;
+  transition: background-color var(--dur);
 }
 
-.name { font-weight: 600; font-size: 16px; }
+.name { font-weight: 600; font-size: var(--text-base); }
 
 .nav {
   display: flex;
   flex-wrap: wrap;
   align-items: center;
   gap: 4px;
+  margin-left: auto;
 
   a {
+    position: relative;
     display: inline-flex;
     align-items: center;
     min-height: 44px;
     padding: 0 14px;
-    font-size: 15px;
+    font-size: var(--text-md);
     font-weight: 500;
     text-decoration: none;
     color: var(--ink);
-    border-radius: 999px;
+    border-radius: var(--radius-pill);
+    transition: background-color var(--dur), color var(--dur);
+
+    /* Underline indicator: the active page isn't signalled by colour alone */
+    &::after {
+      content: '';
+      position: absolute;
+      left: 14px;
+      right: 14px;
+      bottom: 7px;
+      height: 2px;
+      border-radius: 2px;
+      background: currentColor;
+      transform: scaleX(0);
+      transition: transform var(--dur) var(--ease);
+    }
   }
 
-  a:hover, a.active { color: var(--accent); }
-
+  a:hover { color: var(--accent); background: var(--chip); }
+  a.active { color: var(--accent); }
+  a.active::after { transform: scaleX(1); }
 }
-
-.nav { margin-left: auto; }
 
 .cta {
   display: inline-flex;
   align-items: center;
   min-height: 44px;
   padding: 0 18px;
-  border-radius: 999px;
-  font-size: 15px;
+  border-radius: var(--radius-pill);
+  font-size: var(--text-md);
   font-weight: 600;
   text-decoration: none;
   background: var(--ink);
-  color: #FFFFFF;
+  color: var(--on-dark);
+  transition: background-color var(--dur);
 
-  &:hover { background: #1C3048; color: #FFFFFF; }
+  &:hover { background: var(--ink-hover); color: var(--on-dark); }
 }
 
 /* Phones: brand + CTA on one row, section links below; header scrolls away
@@ -93,6 +116,7 @@
     width: 100%;
     margin-left: -10px;
     gap: 0;
-    a { padding: 0 10px; font-size: 15px; }
+    a { padding: 0 10px; }
+    a::after { left: 10px; right: 10px; }
   }
 }

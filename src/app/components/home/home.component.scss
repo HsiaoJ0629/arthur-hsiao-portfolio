@@ -5,9 +5,9 @@
   align-items: center;
   gap: 56px;
   padding-top: 72px;
-  padding-bottom: 96px;
+  padding-bottom: var(--section-y);
 
-  @media (max-width: 640px) { gap: 40px; padding-top: 32px; padding-bottom: 64px; }
+  @media (max-width: 640px) { gap: 40px; padding-top: 32px; }
 }
 
 .hero-copy {
@@ -20,7 +20,7 @@
 
 .hero-eyebrow {
   margin: 0;
-  font-size: 14px;
+  font-size: var(--text-sm);
   text-transform: none;
   letter-spacing: 0;
 }
@@ -41,10 +41,10 @@
   min-width: 0;
   margin: 0;
   padding: 28px 30px;
-  border-radius: 18px;
+  border-radius: var(--radius-lg);
   background: var(--ink);
   color: #D7DEE6;
-  box-shadow: 0 30px 60px -30px rgba(11, 27, 46, 0.55);
+  box-shadow: var(--shadow-float);
 
   .dots {
     display: flex;
@@ -56,7 +56,7 @@
   pre {
     margin: 0;
     font-family: var(--font-mono);
-    font-size: 15px;
+    font-size: var(--text-md);
     line-height: 1.75;
     white-space: pre-wrap;
     color: inherit;
@@ -87,8 +87,6 @@
   p { margin: 0; max-width: 460px; }
 }
 
-.muted { color: var(--muted); }
-
 .services {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(min(240px, 100%), 1fr));
@@ -104,15 +102,15 @@
     padding: 28px 28px 8px 0;
   }
 
-  .num { font-family: var(--font-mono); font-size: 14px; color: var(--accent); }
-  h3 { margin: 0; font-size: 21px; font-weight: 600; }
-  p { margin: 0; color: var(--muted); font-size: 16px; }
+  .num { font-family: var(--font-mono); font-size: var(--text-sm); color: var(--accent); }
+  h3 { margin: 0; font-size: 21px; font-weight: 600; line-height: 1.3; }
+  p { margin: 0; color: var(--muted); font-size: var(--text-base); }
 }
 
 /* Live demos */
 .demos-head { margin-bottom: 24px; }
 
-.demo-teaser-wrap { display: flex; flex-direction: column; gap: 24px; padding-bottom: 96px; }
+.demo-teaser-wrap { display: flex; flex-direction: column; gap: 24px; padding-bottom: var(--section-y); }
 
 .demo-teaser {
   display: flex;
@@ -121,8 +119,11 @@
   gap: 40px;
   padding: 40px;
   border: 1px solid var(--line);
-  border-radius: 20px;
+  border-radius: var(--radius-lg);
   background: var(--surface);
+  transition: border-color var(--dur);
+
+  &:hover, &:focus-within { border-color: var(--line-strong); }
 
   @media (max-width: 600px) { padding: 28px 24px; }
 }

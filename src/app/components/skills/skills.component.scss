@@ -16,7 +16,7 @@
   align-items: center;
   gap: 12px;
 
-  h3 { margin: 0; font-size: 18px; font-weight: 600; }
+  h3 { margin: 0; font-family: var(--font-display); font-size: 20px; font-weight: 700; letter-spacing: -0.01em; }
 }
 
 .clear {
@@ -24,14 +24,18 @@
   padding: 0 12px;
   border: none;
   background: transparent;
+  border-radius: var(--radius-pill);
   color: var(--ink);
-  font-size: 14px;
+  font-size: var(--text-sm);
   font-weight: 500;
   text-decoration: underline;
+  text-underline-offset: 3px;
   cursor: pointer;
+
+  &:hover { color: var(--accent); background: var(--chip); }
 }
 
-.status { margin: -12px 0 0; font-size: 14px; color: var(--muted); }
+.status { margin: -12px 0 0; font-size: var(--text-sm); color: var(--muted); }
 
 .group { display: flex; flex-direction: column; gap: 10px; }
 
@@ -50,20 +54,22 @@
 .chip {
   min-height: 36px;
   padding: 0 14px;
-  border-radius: 999px;
+  border-radius: var(--radius-pill);
   border: 1.5px solid var(--line-strong);
   background: var(--surface);
   color: var(--ink);
-  font-size: 14px;
+  font-size: var(--text-sm);
   font-weight: 500;
   cursor: pointer;
-  transition: background-color .15s, border-color .15s, color .15s;
+  transition: background-color var(--dur), border-color var(--dur), color var(--dur);
 
-  &:hover { border-color: var(--ink); }
+  &:hover { border-color: var(--ink); background: var(--chip); }
 
   &.on {
     background: var(--accent);
     border-color: var(--accent);
-    color: #FFFFFF;
+    color: var(--on-dark);
   }
+
+  &.on:hover { background: var(--accent-hover); border-color: var(--accent-hover); }
 }
