@@ -1,6 +1,6 @@
 # CLAUDE.md
 
-This file gives Claude Code guidance for working in this repository.
+This file provides guidance to Claude Code (claude.ai/code) when working with code in this repository.
 
 ## What this is
 
@@ -15,9 +15,22 @@ A single-page personal portfolio for Arthur Hsiao (Full Stack Developer), built 
 ```bash
 npm start                 # dev server at http://localhost:4200/
 npm run build             # production build (SSR + prerender)
-npm run build:ghpages     # static build used for GitHub Pages
-npm test                  # Karma unit tests
+npm run watch             # development build in watch mode
+npm run build:ghpages     # static build (outputMode: static), base href /arthur-hsiao-portfolio/
+npm run deploy:ghpages    # build:ghpages, then push dist/my-angular-app/browser to the gh-pages branch
+npm run serve:ssr:my-angular-app   # serve the SSR build with Express
+npm test                  # Karma unit tests (opens Chrome, watches)
+
+# one-off headless run, e.g. in a terminal without a display
+npx ng test --watch=false --browsers=ChromeHeadless
+
+# run a single spec file (or a glob)
+npx ng test --watch=false --browsers=ChromeHeadless --include=src/app/service/totp/totp.spec.ts
 ```
+
+- There is no `karma.conf.js`; Karma uses the Angular CLI defaults from the `test` target in `angular.json`.
+- No linter or formatter is configured (no ESLint or Prettier). `.editorconfig` sets 2-space indentation and single quotes in `.ts` files.
+- The npm package name is still `my-angular-app`, so build output goes to `dist/my-angular-app/`.
 
 ## Conventions
 
@@ -173,20 +186,6 @@ arthur-hsiao-portfolio/
             ├── dummy/             DummyJSON API service + models
             └── totp/              HOTP/TOTP, base32, verifier, CLOCK token
 ```
-
----
-
-## Scripts
-
-| Command | What it does |
-|---|---|
-| `npm start` | Dev server at `http://localhost:4200/` |
-| `npm run build` | Production build (SSR + prerender) into `dist/my-angular-app/` |
-| `npm run watch` | Development build in watch mode |
-| `npm test` | Unit tests (Karma) |
-| `npm run serve:ssr:my-angular-app` | Serve the SSR build with Express |
-| `npm run build:ghpages` | Static build (`outputMode: static`) with base href `/arthur-hsiao-portfolio/` |
-| `npm run deploy:ghpages` | Static build, then push `dist/my-angular-app/browser` to the `gh-pages` branch |
 
 ---
 
