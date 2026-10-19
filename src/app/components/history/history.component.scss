@@ -15,9 +15,11 @@
   gap: 18px;
   padding: 32px;
   border: 1.5px solid var(--line);
-  border-radius: var(--radius);
+  border-radius: var(--radius-lg);
   background: var(--surface);
   transition: opacity .2s, border-color .2s, box-shadow .2s;
+
+  @media (min-width: 601px) { padding: 36px; }
 
   &.matched { border-color: var(--accent); box-shadow: var(--shadow-ring); }
   /* Faded, not hidden: 0.6 keeps body text legible (0.45 dropped it to ~2.3:1),
@@ -40,15 +42,22 @@
 .company {
   margin: 0;
   font-family: var(--font-display);
-  font-size: clamp(24px, 2.4vw, 28px);
-  font-weight: 700;
-  line-height: 1.15;
-  letter-spacing: -0.01em;
+  font-size: clamp(24px, 2.6vw, 30px);
+  font-weight: 800;
+  line-height: 1.1;
+  letter-spacing: -0.02em;
 }
 
 .top .meta { margin-top: 4px; font-size: var(--text-base); color: var(--muted); }
 
-.years { font-family: var(--font-mono); font-size: var(--text-md); color: var(--ink-2); }
+.years {
+  padding: 8px 14px;
+  border-radius: var(--radius-pill);
+  background: var(--chip);
+  font-family: var(--font-mono);
+  font-size: var(--text-sm);
+  color: var(--ink-2);
+}
 
 .badge {
   align-self: flex-start;

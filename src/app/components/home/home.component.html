@@ -1,27 +1,30 @@
 <!-- Hero -->
 <section id="top" class="page-wrap hero">
-  <div class="hero-copy">
-    <p class="eyebrow hero-eyebrow"><span class="status-dot"></span>Full Stack Developer · Open to new roles</p>
-    <h1 class="display hero-title">
-      I build dependable software for <span class="accent">finance</span> and <span class="accent">healthcare</span>.
-    </h1>
-    <p class="lede hero-lede">
-      Six years designing and shipping scalable, secure systems end to end — Spring Boot and Node.js services,
-      Angular front ends, and the databases and cloud infrastructure underneath.
-    </p>
-    <div class="hero-actions">
-      <a class="btn-pill primary" routerLink="/home" fragment="experience">
-        See my experience
-        <svg aria-hidden="true" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 5v14"/><path d="m19 12-7 7-7-7"/></svg>
-      </a>
-      <a class="btn-pill outline" routerLink="/home" fragment="demos">Try the live demos</a>
+  <div class="hero-grid">
+    <div class="hero-copy">
+      <p class="hero-eyebrow"><span class="status-dot"></span>Full Stack Developer · Open to new roles</p>
+      <h1 class="display hero-title">
+        I build dependable software for <span class="accent">finance</span> and <span class="accent">healthcare</span>.
+      </h1>
+      <p class="lede hero-lede">
+        Six years designing and shipping scalable, secure systems end to end — Spring Boot and Node.js services,
+        Angular front ends, and the databases and cloud infrastructure underneath.
+      </p>
+      <div class="hero-actions">
+        <a class="btn-pill primary" routerLink="/home" fragment="experience">
+          See my experience
+          <svg aria-hidden="true" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 5v14"/><path d="m19 12-7 7-7-7"/></svg>
+        </a>
+        <a class="btn-pill outline" routerLink="/home" fragment="demos">Try the live demos</a>
+      </div>
     </div>
-  </div>
 
-  <figure class="code-card" aria-label="Profile summary written as code">
-    <div class="dots" aria-hidden="true"><span></span><span></span><span></span></div>
-    <pre><code><span class="c">// arthur.profile.ts</span>
-<span class="k">const</span> arthur = {{ '{' }}
+    <figure class="code-card" aria-label="Profile summary written as code">
+      <div class="bar" aria-hidden="true">
+        <div class="dots"><span></span><span></span><span></span></div>
+        <span class="file">arthur.profile.ts</span>
+      </div>
+      <pre><code><span class="k">const</span> arthur = {{ '{' }}
   role: <span class="s">'Full Stack Developer'</span>,
   since: <span class="n">2020</span>,
   backend: [<span class="s">'Java'</span>, <span class="s">'Spring Boot'</span>, <span class="s">'Node.js'</span>],
@@ -30,14 +33,27 @@
   ships: [<span class="s">'Docker'</span>, <span class="s">'AWS'</span>],
   alsoMentors: <span class="k">true</span>,
 {{ '}' }};</code></pre>
-  </figure>
+    </figure>
+  </div>
+
+  <dl class="facts">
+    @for (f of facts; track f.value) {
+      <div>
+        <dt>{{ f.value }}</dt>
+        <dd>{{ f.label }}</dd>
+      </div>
+    }
+  </dl>
 </section>
 
 <!-- What I do -->
 <section id="work" class="band">
   <div class="page-wrap section stack">
     <div class="section-head">
-      <h2 class="h2">What I do</h2>
+      <div class="head-copy">
+        <span class="eyebrow accent-eyebrow">01 — Services</span>
+        <h2 class="h2">What I do</h2>
+      </div>
       <p class="muted">Across the whole stack, from the API contract to the pixel — and the pipeline that ships it.</p>
     </div>
     <ol class="services">
@@ -56,48 +72,81 @@
 <app-about></app-about>
 
 <!-- Live demos -->
-<section id="demos" class="page-wrap demo-teaser-wrap">
-  <div class="section-head demos-head">
-    <h2 class="h2">Live demos</h2>
-    <p class="muted">Working code you can try in the browser — not screenshots.</p>
-  </div>
-
-  <div class="demo-teaser">
-    <div class="demo-copy">
-      <span class="eyebrow">01 · Full stack</span>
-      <h3 class="demo-title">Product management system</h3>
-      <p class="muted">
-        Search, sort, page through and edit products against a live REST API — built with Angular and Angular Material.
-      </p>
-      <ul class="tag-list" aria-label="Demo features">
-        @for (f of demoFeatures; track f) {
-          <li class="tag">{{ f }}</li>
-        }
-      </ul>
+<section id="demos" class="demos-band on-dark">
+  <div class="page-wrap section stack">
+    <div class="section-head">
+      <div class="head-copy">
+        <span class="eyebrow accent-eyebrow">03 — Live demos</span>
+        <h2 class="h2">Working code, not screenshots</h2>
+      </div>
+      <p>Both run entirely in your browser. Open one and try it.</p>
     </div>
-    <a class="btn-pill dark" routerLink="/demo">
-      Open the demo
-      <svg aria-hidden="true" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg>
-    </a>
-  </div>
 
-  <div class="demo-teaser">
-    <div class="demo-copy">
-      <span class="eyebrow">02 · Security</span>
-      <h3 class="demo-title">Multi-factor authentication</h3>
-      <p class="muted">
-        Generate and verify one-time codes in the browser — TOTP built from scratch on the Web Crypto API, with
-        clock-drift tolerance, replay protection and lockout.
-      </p>
-      <ul class="tag-list" aria-label="MFA demo features">
-        @for (f of mfaFeatures; track f) {
-          <li class="tag">{{ f }}</li>
-        }
-      </ul>
+    <div class="demos">
+      <a class="demo-card" routerLink="/demo">
+        <!-- Illustrative preview of the demo's UI; the real data comes from DummyJSON -->
+        <div class="preview table-preview" aria-hidden="true">
+          <div class="search">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="11" cy="11" r="7"/><path d="m20 20-3.5-3.5"/></svg>
+            Search products…
+          </div>
+          <div class="row head"><span>Title ↓</span><span>Price</span><span>Stock</span></div>
+          <div class="row"><span>Essence Mascara Lash Princess</span><span>$9.99</span><span>99</span></div>
+          <div class="row hl"><span>Eyeshadow Palette with Mirror</span><span>$19.99</span><span>34</span></div>
+          <div class="row"><span>Powder Canister</span><span>$14.99</span><span>89</span></div>
+        </div>
+        <div class="demo-copy">
+          <span class="eyebrow accent-eyebrow">01 · Full stack</span>
+          <h3 class="demo-title">Product management system</h3>
+          <p>Search, sort, page through and edit products against a live REST API — built with Angular and Angular Material.</p>
+        </div>
+        <div class="demo-foot">
+          <ul class="tag-list" aria-label="Demo features">
+            @for (f of demoFeatures; track f) {
+              <li class="tag">{{ f }}</li>
+            }
+          </ul>
+          <span class="go">Open the demo
+            <svg aria-hidden="true" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg>
+          </span>
+        </div>
+      </a>
+
+      <a class="demo-card" routerLink="/mfa-demo">
+        <div class="preview otp-preview" aria-hidden="true">
+          <svg width="88" height="88" viewBox="0 0 88 88">
+            <circle cx="44" cy="44" r="38" fill="none" stroke="#EEF2F6" stroke-width="8"/>
+            <circle cx="44" cy="44" r="38" fill="none" stroke="#0061A3" stroke-width="8" stroke-linecap="round" stroke-dasharray="238.8" stroke-dashoffset="80" transform="rotate(-90 44 44)"/>
+            <text x="44" y="51" text-anchor="middle" font-family="IBM Plex Mono, monospace" font-size="20" font-weight="500" fill="#0B1B2E">20s</text>
+          </svg>
+          <div class="otp">
+            <span class="otp-label">Current code · SHA-1</span>
+            <span class="otp-code">482 019</span>
+            <span class="otp-ok">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg>
+              Verified within drift window
+            </span>
+          </div>
+        </div>
+        <div class="demo-copy">
+          <span class="eyebrow accent-eyebrow">02 · Security</span>
+          <h3 class="demo-title">Multi-factor authentication</h3>
+          <p>
+            Generate and verify one-time codes in the browser — TOTP built from scratch on the Web Crypto API, with
+            clock-drift tolerance, replay protection and lockout.
+          </p>
+        </div>
+        <div class="demo-foot">
+          <ul class="tag-list" aria-label="MFA demo features">
+            @for (f of mfaFeatures; track f) {
+              <li class="tag">{{ f }}</li>
+            }
+          </ul>
+          <span class="go">Open the MFA demo
+            <svg aria-hidden="true" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg>
+          </span>
+        </div>
+      </a>
     </div>
-    <a class="btn-pill dark" routerLink="/mfa-demo">
-      Open the MFA demo
-      <svg aria-hidden="true" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg>
-    </a>
   </div>
 </section>

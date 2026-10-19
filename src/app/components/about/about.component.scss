@@ -9,8 +9,10 @@
 .intro {
   display: flex;
   flex-direction: column;
-  gap: 20px;
+  gap: 16px;
   max-width: 820px;
+
+  .h2 { margin-bottom: 4px; }
 }
 
 .layout {

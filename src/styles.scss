@@ -205,6 +205,10 @@ main:focus { outline: none; }
   color: var(--muted);
 }
 
+/* Numbered section label above an h2 */
+.accent-eyebrow { color: var(--accent); }
+.on-dark .accent-eyebrow { color: var(--on-dark-accent); }
+
 .status-dot {
   width: 9px;
   height: 9px;

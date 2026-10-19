@@ -21,6 +21,13 @@ export class HomeComponent {
     { title: 'Cloud & DevOps', text: 'Containerised deploys on Docker and AWS with CI/CD pipelines.' }
   ];
 
+  facts = [
+    { value: '6 yrs', label: 'Shipping production code' },
+    { value: '2', label: 'Regulated sectors: fintech, health' },
+    { value: 'Full', label: 'Stack — API to pixel to pipeline' },
+    { value: '2 live', label: 'Demos you can try right here' }
+  ];
+
   demoFeatures: string[] = ['Real-time search', 'Sorting', 'Pagination', 'CRUD', 'REST API'];
   mfaFeatures: string[] = ['TOTP (RFC 6238)', 'Web Crypto API', 'Replay protection', 'Lockout'];
 }

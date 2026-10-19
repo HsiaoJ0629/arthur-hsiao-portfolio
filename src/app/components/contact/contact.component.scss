@@ -22,12 +22,16 @@
   letter-spacing: 0;
   color: var(--on-dark-muted);
 
-  .status-dot { background: var(--on-dark-accent); box-shadow: 0 0 0 4px rgba(158, 202, 255, 0.18); }
+  .status-dot { background: #7FD69A; box-shadow: 0 0 0 4px rgba(127, 214, 154, 0.18); }
 }
 
 .title {
   max-width: 900px;
   font-size: clamp(40px, 5.5vw, 76px);
+  font-weight: 800;
+  letter-spacing: -0.035em;
+
+  .accent { color: var(--on-dark-accent); }
 }
 
 .links {
